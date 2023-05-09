@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeBytes.DAL.Tasks
+namespace CodeBytes.DTO.Problems
 {
-    interface ITaskRepository
+    public class ProblemDTO
     {
-        void Save(TaskEntity entity);
-
-        TaskEntity Get(int id);
+        public string Title;
+        public string Description;
     }
 }

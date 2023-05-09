@@ -1,0 +1,19 @@
+﻿using CodeBytes.DTO.Problems;
+using CodeBytes.Reader.Codewars.Models;
+using Mapster;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CodeBytes.Reader.Codewars.Mapping
+{
+    public static class KataMapsterConfig
+    {
+        public static TypeAdapterConfig KataMapsterConfiguration = new TypeAdapterConfig().NewConfig<Kata, ProblemDTO>().
+                                                                       Map(src => src.Title, dest => dest.Name).
+                                                                       Map(src => src.Description, dest => dest.Description).
+                                                                       Config;
+    }
+}

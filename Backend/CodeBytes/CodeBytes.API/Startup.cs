@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CodeBytes.DAL.Problems;
+using CodeBytes.API.Services;
+using CodeBytes.Reader.Codewars;
 
 namespace CodeBytes.API
 {
@@ -28,6 +31,10 @@ namespace CodeBytes.API
         {
 
             services.AddControllers();
+
+            services.AddTransient<IProblemRepository, ProblemRepository>();
+            services.AddTransient<ProblemService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CodeBytes.API", Version = "v1" });
@@ -35,8 +42,11 @@ namespace CodeBytes.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ProblemService problemService)
         {
+            var list = CodeWarsReader.GetProblemsPerUser("andersk").Result;
+            problemService.SaveProblems(list);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

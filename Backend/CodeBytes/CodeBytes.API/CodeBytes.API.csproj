@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CodeBytes.DAL\CodeBytes.DAL.csproj" />
     <ProjectReference Include="..\CodeBytes.DTO\CodeBytes.Contracts.csproj" />
     <ProjectReference Include="..\CodeBytes.Reader.Codewars\CodeBytes.Reader.Codewars.csproj" />
     <ProjectReference Include="..\CodeBytes.Reader.Leetcode\CodeBytes.Reader.Leetcode.csproj" />

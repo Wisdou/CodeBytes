@@ -18,8 +18,6 @@ namespace CodeBytes.API
 
         public static void Main(string[] args)
         {
-            var list = CodeWarsReader.GetProblemsPerUser("andersk").Result;
-            File.WriteAllText(PATH_TO_FILE, JsonConvert.SerializeObject(list));
             CreateHostBuilder(args).Build().Run();
         }
 
