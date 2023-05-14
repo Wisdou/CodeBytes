@@ -39,7 +39,7 @@ namespace CodeBytes.API
             services.AddControllers();
 
             services.AddScoped<IProblemRepository, ProblemRepository>();
-            services.AddScoped<ProblemService>();
+            services.AddScoped<IProblemService, ProblemService>();
 
             var connectionString = Configuration.GetConnectionString("Postgres");
             services.AddDbContext<CodeByteContext>(options => options.UseNpgsql(connectionString));
@@ -51,9 +51,7 @@ namespace CodeBytes.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
-                              ProblemService problemService,
-                              IProblemRepository repository)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IProblemRepository repository)
         {
             DataSeeder.FillUsers(repository).Wait();
 

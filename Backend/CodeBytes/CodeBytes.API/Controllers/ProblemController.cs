@@ -1,4 +1,7 @@
-﻿using CodeBytes.API.Services;
+﻿using CodeBytes.API.Contracts;
+using CodeBytes.API.Services;
+using CodeBytes.Domain.Interfaces;
+using CodeBytes.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,27 +16,33 @@ namespace CodeBytes.API.Controllers
     public class ProblemsController : ControllerBase
     {
         private readonly ILogger<ProblemsController> _logger;
-        private readonly ProblemService _service;
+        private readonly IProblemService _service;
 
-        public ProblemsController(ILogger<ProblemsController> logger, ProblemService problemService)
+        public ProblemsController(ILogger<ProblemsController> logger, IProblemService problemService)
         {
             this._logger = logger;
             this._service = problemService;
         }
 
-        [HttpGet]
-        [Route("{id:int}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetProblemById(int id)
         {
             var problem = this._service.GetProblem(id);
-            return Ok(problem);
+            var response = new GetProblemByIdResponse()
+            {
+                Problem = problem,
+            };
+            return Ok(response);
         }
 
-        [HttpGet]
-        [Route("problems")]
+        [HttpGet("problems")]
         public async Task<IActionResult> GetProblems()
         {
             var problems = this._service.GetProblems();
+            var response = new GetProblemsResponse()
+            {
+                Problems = problems,
+            };
             return Ok(problems);
         }
     }

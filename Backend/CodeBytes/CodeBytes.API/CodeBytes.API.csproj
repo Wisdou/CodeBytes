@@ -15,8 +15,4 @@
     <ProjectReference Include="..\CodeBytes.Reader.Leetcode\CodeBytes.Reader.Leetcode.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\" />
-  </ItemGroup>
-
 </Project>
