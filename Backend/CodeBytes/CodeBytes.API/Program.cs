@@ -14,8 +14,6 @@ namespace CodeBytes.API
 {
     public class Program
     {
-        private const string PATH_TO_FILE = @"C:\Users\Daniel\OneDrive\Рабочий стол\Solutions.txt";
-
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
