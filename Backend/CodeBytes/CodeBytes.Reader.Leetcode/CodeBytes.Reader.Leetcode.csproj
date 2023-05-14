@@ -10,11 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.0.1" />
     <PackageReference Include="Mapster" Version="7.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CodeBytes.DTO\CodeBytes.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

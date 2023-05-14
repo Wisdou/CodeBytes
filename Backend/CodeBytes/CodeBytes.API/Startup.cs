@@ -11,9 +11,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using CodeBytes.DAL.Problems;
 using CodeBytes.API.Services;
 using CodeBytes.Reader.Codewars;
+using CodeBytes.Reader.Leetcode;
+using CodeBytes.DAL.Data;
+using Microsoft.EntityFrameworkCore;
+using CodeBytes.Domain.Interfaces;
 
 namespace CodeBytes.API
 {
@@ -32,8 +37,11 @@ namespace CodeBytes.API
 
             services.AddControllers();
 
-            services.AddTransient<IProblemRepository, ProblemRepository>();
-            services.AddTransient<ProblemService>();
+            services.AddScoped<IProblemRepository, ProblemRepository>();
+            services.AddScoped<ProblemService>();
+
+            var connectionString = Configuration.GetConnectionString("Postgres");
+            services.AddDbContext<CodeByteContext>(options => options.UseNpgsql(connectionString));
 
             services.AddSwaggerGen(c =>
             {
@@ -46,6 +54,8 @@ namespace CodeBytes.API
         {
             var list = CodeWarsReader.GetProblemsPerUser("andersk").Result;
             problemService.SaveProblems(list);
+            
+            Console.WriteLine(JsonConvert.SerializeObject(LeetcodeReader.GetProblem("maximize-score-after-n-operations").Result));
 
             if (env.IsDevelopment())
             {

@@ -1,7 +1,6 @@
 ﻿using CodeBytes.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,33 +10,31 @@ namespace CodeBytes.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProblemController : ControllerBase
+    public class ProblemsController : ControllerBase
     {
-        private readonly ILogger<ProblemController> _logger;
+        private readonly ILogger<ProblemsController> _logger;
         private readonly ProblemService _service;
 
-        public ProblemController(ILogger<ProblemController> logger, ProblemService problemService)
+        public ProblemsController(ILogger<ProblemsController> logger, ProblemService problemService)
         {
             this._logger = logger;
             this._service = problemService;
         }
 
         [HttpGet]
-        [Route("GetProblemById/{id}")]
-        public IActionResult GetProblemById(int id)
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetProblemById(int id)
         {
             var problem = this._service.GetProblem(id);
-            var content = JsonConvert.SerializeObject(problem);
-            return Ok(content);
+            return Ok(problem);
         }
 
         [HttpGet]
-        [Route("GetProblems")]
-        public IActionResult GetProblems()
+        [Route("problems")]
+        public async Task<IActionResult> GetProblems()
         {
             var problems = this._service.GetProblems();
-            var content = JsonConvert.SerializeObject(problems);
-            return Ok(content);
+            return Ok(problems);
         }
     }
 }

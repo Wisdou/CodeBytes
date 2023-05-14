@@ -1,5 +1,6 @@
 ﻿using CodeBytes.DAL.Data;
-using CodeBytes.DTO.Problems;
+using CodeBytes.Domain.Interfaces;
+using CodeBytes.Domain.Model;
 using Mapster;
 using System;
 using System.Collections.Generic;
@@ -11,46 +12,41 @@ namespace CodeBytes.DAL.Problems
 {
     public class ProblemRepository : IProblemRepository
     {
-        public ProblemDTO Get(int id)
+        private CodeByteContext _context;
+
+        public ProblemRepository(CodeByteContext context)
+        {
+            this._context = context;
+        }
+
+        public Problem Get(int id)
         {
             ProblemEntity problem;
 
-            using (var context = new DataContext())
-            {
-                problem = context.Problems.First(x => x.ID == id);
-            }
+            problem = this._context.Problems.First(x => x.ID == id);
 
-            return problem.Adapt<ProblemDTO>(ProblemMapping.EntityToDtoConfiguration);
+            return problem.Adapt<Problem>(ProblemMapping.EntityToDtoConfiguration);
         }
 
-        public List<ProblemDTO> GetAll()
+        public List<Problem> GetAll()
         {
             List<ProblemEntity> problems = new List<ProblemEntity>();
 
-            using (var context = new DataContext())
-            {
-                problems = context.Problems.ToList();
-            }
+            problems = this._context.Problems.ToList();
 
-            return problems.AsQueryable().ProjectToType<ProblemDTO>(ProblemMapping.EntityToDtoConfiguration).ToList();
+            return problems.AsQueryable().ProjectToType<Problem>(ProblemMapping.EntityToDtoConfiguration).ToList();
         }
 
-        public void Save(ProblemDTO entity)
+        public void Save(Problem entity)
         {
-            using (var context = new DataContext())
-            {
-                context.Problems.Add(entity.Adapt<ProblemEntity>(ProblemMapping.DtoToEntityConfiguration));
-                context.SaveChanges();
-            }
+            this._context.Problems.Add(entity.Adapt<ProblemEntity>(ProblemMapping.DtoToEntityConfiguration));
+            this._context.SaveChanges();
         }
 
-        public void SaveRange(IEnumerable<ProblemDTO> entities)
+        public void SaveRange(IEnumerable<Problem> entities)
         {
-            using (var context = new DataContext())
-            {
-                context.Problems.AddRange(entities.AsQueryable().ProjectToType<ProblemEntity>(ProblemMapping.DtoToEntityConfiguration));
-                context.SaveChanges();
-            }
+            this._context.Problems.AddRange(entities.AsQueryable().ProjectToType<ProblemEntity>(ProblemMapping.DtoToEntityConfiguration));
+            this._context.SaveChanges();
         }
     }
 }

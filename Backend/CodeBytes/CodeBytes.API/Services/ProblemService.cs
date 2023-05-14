@@ -1,13 +1,14 @@
 ﻿using CodeBytes.DAL.Problems;
-using CodeBytes.DTO.Problems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CodeBytes.Domain.Interfaces;
+using CodeBytes.Domain.Model;
 
 namespace CodeBytes.API.Services
 {
-    public class ProblemService
+    public class ProblemService: IProblemService
     {
         private IProblemRepository _repository;
         public ProblemService(IProblemRepository repository)
@@ -15,22 +16,22 @@ namespace CodeBytes.API.Services
             this._repository = repository;
         }
 
-        public void SaveProblem(ProblemDTO problemDTO)
+        public void SaveProblem(Problem Problem)
         {
-            this._repository.Save(problemDTO);
+            this._repository.Save(Problem);
         }
 
-        public void SaveProblems(IEnumerable<ProblemDTO> problemDTOs)
+        public void SaveProblems(IEnumerable<Problem> Problems)
         {
-            this._repository.SaveRange(problemDTOs);
+            this._repository.SaveRange(Problems);
         }
 
-        public ProblemDTO GetProblem(int id)
+        public Problem GetProblem(int id)
         {
             return this._repository.Get(id);
         }
 
-        public List<ProblemDTO> GetProblems()
+        public List<Problem> GetProblems()
         {
             return this._repository.GetAll();
         }

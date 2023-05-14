@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using CodeBytes.DTO.Problems;
 using System.Linq;
 using Mapster;
 using CodeBytes.Reader.Codewars.Mapping;
+using CodeBytes.Domain.Model;
 
 namespace CodeBytes.Reader.Codewars
 {
@@ -48,10 +48,10 @@ namespace CodeBytes.Reader.Codewars
             return result;
         }
 
-        public async static Task<List<ProblemDTO>> GetProblemsPerUser(string usedId)
+        public async static Task<List<Problem>> GetProblemsPerUser(string usedId)
         {
             var result = await GetKatasPerUser(usedId);
-            return result.AsQueryable().ProjectToType<ProblemDTO>(KataMapsterConfig.KataMapsterConfiguration).ToList();
+            return result.AsQueryable().ProjectToType<Problem>(KataMapsterConfig.KataMapsterConfiguration).ToList();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CodeBytes.DTO.Problems;
+﻿using CodeBytes.Domain.Model;
 using Mapster;
 using System;
 using System.Collections.Generic;
@@ -11,13 +11,13 @@ namespace CodeBytes.DAL.Problems
     static class ProblemMapping
     {
         public static TypeAdapterConfig EntityToDtoConfiguration = new TypeAdapterConfig().
-                                                                       NewConfig<ProblemEntity, ProblemDTO>().
+                                                                       NewConfig<ProblemEntity, Problem>().
                                                                        Map(src => src.Title, dest => dest.Title).
                                                                        Map(src => src.Description, dest => dest.Description).
                                                                        Config;
 
         public static TypeAdapterConfig DtoToEntityConfiguration = new TypeAdapterConfig().
-                                                                       NewConfig<ProblemDTO, ProblemEntity>().
+                                                                       NewConfig<Problem, ProblemEntity>().
                                                                        Map(src => src.Title, dest => dest.Title).
                                                                        Map(src => src.Description, dest => dest.Description).
                                                                        Config;

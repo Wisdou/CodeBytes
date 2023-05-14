@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeBytes.DTO\CodeBytes.Contracts.csproj" />
+    <ProjectReference Include="..\CodeBytes.Domain\CodeBytes.Domain.csproj" />
   </ItemGroup>
 
 </Project>

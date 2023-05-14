@@ -8,5 +8,7 @@ namespace CodeBytes.Domain.Model
 {
     public class Problem
     {
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }
