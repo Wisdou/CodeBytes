@@ -16,12 +16,21 @@ namespace CodeBytes.Reader.Leetcode
         private const string LEETCODE_PROBLEMS_URL = LeetcodeReader.LEETCODE_URL + "problemset/all/";
         private const string LEETCODE_PROBLEM_URL_PATTERN = LeetcodeReader.LEETCODE_URL + "problems/{0}";
 
-        public static async Task<List<LeetcodeProblem>> GetFirstProblems()
+        public static async Task<List<LeetcodeProblem>> GetFirstProblems(int cnt)
         {
-            return new List<LeetcodeProblem>();
+            var leetcodeMainPageUrl = LEETCODE_PROBLEMS_URL;
+            var config = Configuration.Default.WithDefaultLoader();
+            var context = BrowsingContext.New(config);
+            var document = await context.OpenAsync(leetcodeMainPageUrl);
+
+            var rowSelector = "div[role=\"row\"]";
+            var dataRows = document.QuerySelectorAll(rowSelector);
+
+            List<LeetcodeProblem> result = new List<LeetcodeProblem>();
+            return result;
         }
 
-        public static async Task<LeetcodeProblem> GetProblem(string name)
+        public static async Task<string> GetProblemDescrption(string name)
         {
             var problemUrl = String.Format(LeetcodeReader.LEETCODE_PROBLEM_URL_PATTERN, name);
 
@@ -32,18 +41,7 @@ namespace CodeBytes.Reader.Leetcode
             var problemDataDescr = document.QuerySelector(dataDescrSelector);
             var descr = problemDataDescr.TextContent;
 
-            var dataNameSelector = "div .mr-2 .text-lg .font-medium .text-label-1";
-            string problemDataName = document.QuerySelector(dataNameSelector).FirstChild.TextContent;
-
-            var dataAcceptanceSelector = "div .text-label-1 .dark:text-dark-label-1 .text-sm .font-medium > span";
-            string acceptanceRating = document.QuerySelector(dataAcceptanceSelector).FirstChild.TextContent;
-
-            return new LeetcodeProblem()
-            {
-                Title = problemDataName,
-                Description = descr,
-                Acceptance = Convert.ToDecimal(acceptanceRating.Substring(0, acceptanceRating.Length - 1))
-            };
+            return descr;
         }
     }
 }

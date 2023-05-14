@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CodeBytes.Domain\CodeBytes.Domain.csproj" />
+    <ProjectReference Include="..\CodeBytes.Reader.Codewars\CodeBytes.Reader.Codewars.csproj" />
   </ItemGroup>
 
 </Project>

@@ -19,6 +19,7 @@ using CodeBytes.Reader.Leetcode;
 using CodeBytes.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using CodeBytes.Domain.Interfaces;
+using CodeBytes.DAL.Seeder;
 
 namespace CodeBytes.API
 {
@@ -50,12 +51,11 @@ namespace CodeBytes.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ProblemService problemService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+                              ProblemService problemService,
+                              IProblemRepository repository)
         {
-            var list = CodeWarsReader.GetProblemsPerUser("andersk").Result;
-            problemService.SaveProblems(list);
-            
-            Console.WriteLine(JsonConvert.SerializeObject(LeetcodeReader.GetProblem("maximize-score-after-n-operations").Result));
+            DataSeeder.FillUsers(repository).Wait();
 
             if (env.IsDevelopment())
             {

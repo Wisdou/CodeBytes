@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CodeBytes.Reader.Codewars;
 using Newtonsoft.Json;
 using System.IO;
+using CodeBytes.DAL.Seeder;
 
 namespace CodeBytes.API
 {
