@@ -10,16 +10,22 @@ namespace CodeBytes.DAL.Problems
 {
     static class ProblemMapping
     {
-        public static TypeAdapterConfig EntityToDtoConfiguration = new TypeAdapterConfig().
-                                                                       NewConfig<ProblemEntity, Problem>().
-                                                                       Map(src => src.Title, dest => dest.Title).
-                                                                       Map(src => src.Description, dest => dest.Description).
-                                                                       Config;
+        public static Problem GetModelFromEntity(ProblemEntity problem)
+        {
+            return new Problem()
+            {
+                Title = problem.Title,
+                Description = problem.Description,
+            };
+        }
 
-        public static TypeAdapterConfig DtoToEntityConfiguration = new TypeAdapterConfig().
-                                                                       NewConfig<Problem, ProblemEntity>().
-                                                                       Map(src => src.Title, dest => dest.Title).
-                                                                       Map(src => src.Description, dest => dest.Description).
-                                                                       Config;
+        public static ProblemEntity GetEntityFromModel(Problem problem)
+        {
+            return new ProblemEntity()
+            {
+                Title = problem.Title,
+                Description = problem.Description,
+            };
+        }
     }
 }
