@@ -25,7 +25,7 @@ namespace CodeBytes.DAL.Problems
 
             problem = this._context.Problems.First(x => x.ID == id);
 
-            return ProblemMapping.GetModelFromEntity(problem);
+            return problem.Adapt<Problem>(ProblemMapping.EntityToDtoConfiguration);
         }
 
         public List<Problem> GetAll()
@@ -34,18 +34,18 @@ namespace CodeBytes.DAL.Problems
 
             problems = this._context.Problems.ToList();
 
-            return problems.Select(problem => ProblemMapping.GetModelFromEntity(problem)).ToList();
+            return problems.AsQueryable().ProjectToType<Problem>(ProblemMapping.EntityToDtoConfiguration).ToList();
         }
 
-        public void Save(Problem model)
+        public void Save(Problem entity)
         {
-            this._context.Problems.Add(ProblemMapping.GetEntityFromModel(model));
+            this._context.Problems.Add(entity.Adapt<ProblemEntity>(ProblemMapping.DtoToEntityConfiguration));
             this._context.SaveChanges();
         }
 
-        public void SaveRange(IEnumerable<Problem> models)
+        public void SaveRange(IEnumerable<Problem> entities)
         {
-            this._context.Problems.AddRange(models.Select(problem => ProblemMapping.GetEntityFromModel(problem)));
+            this._context.Problems.AddRange(entities.AsQueryable().ProjectToType<ProblemEntity>(ProblemMapping.DtoToEntityConfiguration));
             this._context.SaveChanges();
         }
     }
