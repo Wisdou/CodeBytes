@@ -5,6 +5,6 @@ namespace CodeBytes.API.Contracts
 {
     public class GetProblemsResponse
     {
-        public List<Problem> Problems { get; set; }
+        public IReadOnlyCollection<Problem> Problems { get; set; }
     }
 }

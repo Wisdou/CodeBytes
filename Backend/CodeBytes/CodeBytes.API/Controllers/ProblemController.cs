@@ -27,7 +27,7 @@ namespace CodeBytes.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetProblemById(int id)
         {
-            var problem = this._service.GetProblem(id);
+            var problem = await this._service.GetProblemAsync(id);
             var response = new GetProblemByIdResponse()
             {
                 Problem = problem,
@@ -38,7 +38,7 @@ namespace CodeBytes.API.Controllers
         [HttpGet("problems")]
         public async Task<IActionResult> GetProblems()
         {
-            var problems = this._service.GetProblems();
+            var problems = await this._service.GetProblemsAsync();
             var response = new GetProblemsResponse()
             {
                 Problems = problems,

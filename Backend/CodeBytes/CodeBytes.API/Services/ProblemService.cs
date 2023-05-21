@@ -31,9 +31,31 @@ namespace CodeBytes.API.Services
             return this._repository.Get(id);
         }
 
-        public List<Problem> GetProblems()
+        public IReadOnlyCollection<Problem> GetProblems()
         {
             return this._repository.GetAll();
+        }
+
+        public async Task SaveProblemAsync(Problem problemDTO)
+        {
+            await this._repository.SaveAsync(problemDTO);
+        }
+
+        public async Task SaveProblemsAsync(IEnumerable<Problem> problemDTOs)
+        {
+            await this._repository.SaveRangeAsync(problemDTOs);
+        }
+
+        public async Task<Problem> GetProblemAsync(int id)
+        {
+            Problem problem = await this._repository.GetAsync(id);
+            return problem;
+        }
+
+        public async Task<IReadOnlyCollection<Problem>> GetProblemsAsync()
+        {
+            IReadOnlyCollection<Problem> problems = await this._repository.GetAllAsync();
+            return problems;
         }
     }
 }
