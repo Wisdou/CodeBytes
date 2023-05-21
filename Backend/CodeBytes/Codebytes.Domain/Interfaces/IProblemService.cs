@@ -15,6 +15,14 @@ namespace CodeBytes.Domain.Interfaces
 
         public Problem GetProblem(int id);
 
-        public List<Problem> GetProblems();
+        public IReadOnlyCollection<Problem> GetProblems();
+
+        public Task SaveProblemAsync(Problem problemDTO);
+
+        public Task SaveProblemsAsync(IEnumerable<Problem> problemDTOs);
+
+        public Task<Problem> GetProblemAsync(int id);
+
+        public Task<IReadOnlyCollection<Problem>> GetProblemsAsync();
     }
 }

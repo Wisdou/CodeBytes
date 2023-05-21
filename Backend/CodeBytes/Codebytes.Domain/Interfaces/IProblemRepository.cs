@@ -9,11 +9,13 @@ namespace CodeBytes.Domain.Interfaces
 {
     public interface IProblemRepository
     {
-        void Save(Problem entity);
-
-        void SaveRange(IEnumerable<Problem> entities);
-
-        List<Problem> GetAll();
         Problem Get(int id);
+        Task<Problem> GetAsync(int id);
+        void Save(Problem entity);
+        Task SaveAsync(Problem entity);
+        void SaveRange(IEnumerable<Problem> entities);
+        Task SaveRangeAsync(IEnumerable<Problem> entities);
+        IReadOnlyCollection<Problem> GetAll();
+        Task<IReadOnlyCollection<Problem>> GetAllAsync();
     }
 }
