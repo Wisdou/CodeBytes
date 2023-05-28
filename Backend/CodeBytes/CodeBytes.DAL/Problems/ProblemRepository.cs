@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,28 +23,28 @@ namespace CodeBytes.DAL.Problems
 
         public Problem Get(int id)
         {
-            ProblemEntity problem = this._context.Problems.AsNoTracking().FirstOrDefault(x => x.ID == id);
+            ProblemEntity problem = this._context.Problems.Include(x => x.Tags).AsNoTracking().FirstOrDefault(x => x.ID == id);
 
             return ProblemMapping.GetModelFromEntity(problem);
         }
 
         public IReadOnlyCollection<Problem> GetAll()
         {
-            List<ProblemEntity> problems = this._context.Problems.AsNoTracking().ToList();
+            List<ProblemEntity> problems = this._context.Problems.Include(x => x.Tags).AsNoTracking().ToList();
 
             return problems.Select(problem => ProblemMapping.GetModelFromEntity(problem)).ToList().AsReadOnly();
         }
 
         public async Task<IReadOnlyCollection<Problem>> GetAllAsync()
         {
-            List<ProblemEntity> problems = await this._context.Problems.AsNoTracking().ToListAsync();
+            List<ProblemEntity> problems = await this._context.Problems.Include(x => x.Tags).AsNoTracking().ToListAsync();
 
             return problems.Select(problem => ProblemMapping.GetModelFromEntity(problem)).ToList().AsReadOnly();
         }
 
         public async Task<Problem> GetAsync(int id)
         {
-            ProblemEntity problem = await this._context.Problems.FindAsync(id);
+            ProblemEntity problem = this._context.Problems.Include(x => x.Tags).FirstOrDefault(x => x.ID == id);
             return ProblemMapping.GetModelFromEntity(problem);
         }
 

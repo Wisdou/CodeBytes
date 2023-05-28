@@ -14,6 +14,7 @@ namespace CodeBytes.Reader.Codewars.Mapping
         public static TypeAdapterConfig KataMapsterConfiguration = new TypeAdapterConfig().NewConfig<Kata, Problem>().
                                                                        Map(src => src.Title, dest => dest.Name).
                                                                        Map(src => src.Description, dest => dest.Description).
+                                                                       Map(src => src.Tags, dest => dest.Tags.Select(tag => new ProblemTag() { Tag = tag }).ToList()).
                                                                        Config;
     }
 }

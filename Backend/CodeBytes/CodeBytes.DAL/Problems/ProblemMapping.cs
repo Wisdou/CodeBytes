@@ -10,6 +10,22 @@ namespace CodeBytes.DAL.Problems
 {
     static class ProblemMapping
     {
+        public static ProblemTag GetModelFromEntity(ProblemTagEntity tag)
+        {
+            return new ProblemTag()
+            {
+                Tag = tag.Tag,
+            };
+        }
+
+        public static ProblemTagEntity GetEntityFromModel(ProblemTag tag)
+        {
+            return new ProblemTagEntity()
+            {
+                Tag = tag.Tag,
+            };
+        }
+
         public static Problem GetModelFromEntity(ProblemEntity problem)
         {
             if (problem == null)
@@ -21,6 +37,7 @@ namespace CodeBytes.DAL.Problems
             {
                 Title = problem.Title,
                 Description = problem.Description,
+                Tags = problem.Tags.Select(x => GetModelFromEntity(x)).ToList(),
             };
         }
 
@@ -35,6 +52,7 @@ namespace CodeBytes.DAL.Problems
             {
                 Title = problem.Title,
                 Description = problem.Description,
+                Tags = problem.Tags.Select(x => GetEntityFromModel(x)).ToList(),
             };
         }
     }

@@ -20,5 +20,7 @@ namespace CodeBytes.DAL.Data
         }
 
         public DbSet<ProblemEntity> Problems { get; set; }
+
+        public DbSet<ProblemTagEntity> ProblemTags { get; set; }
     }
 }

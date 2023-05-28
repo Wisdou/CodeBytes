@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace CodeBytes.Domain.Model
 {
-    public class Problem
+    public class ProblemTag
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public List<ProblemTag> Tags { get; set; }
+        public string Tag { get;set; }
     }
 }
