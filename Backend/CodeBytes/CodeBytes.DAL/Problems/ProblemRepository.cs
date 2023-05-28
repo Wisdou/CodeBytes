@@ -43,7 +43,7 @@ namespace CodeBytes.DAL.Problems
 
         public async Task<Problem> GetAsync(int id)
         {
-            ProblemEntity problem = await this._context.Problems.FindAsync(new int[] { id });
+            ProblemEntity problem = await this._context.Problems.FindAsync(id);
             return ProblemMapping.GetModelFromEntity(problem);
         }
 

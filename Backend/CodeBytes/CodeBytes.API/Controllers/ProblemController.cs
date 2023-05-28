@@ -1,4 +1,5 @@
 ﻿using CodeBytes.API.Contracts;
+using CodeBytes.API.Contracts.ProblemController;
 using CodeBytes.API.Services;
 using CodeBytes.Domain.Interfaces;
 using CodeBytes.Domain.Model;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace CodeBytes.API.Controllers
@@ -28,6 +30,12 @@ namespace CodeBytes.API.Controllers
         public async Task<IActionResult> GetProblemById(int id)
         {
             var problem = await this._service.GetProblemAsync(id);
+            if (problem == null)
+            {
+                var errorResponse = new NoProblemErrorResponse(id);
+                return BadRequest(errorResponse);
+            }
+
             var response = new GetProblemByIdResponse()
             {
                 Problem = problem,
