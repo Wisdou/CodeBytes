@@ -12,6 +12,11 @@ namespace CodeBytes.DAL.Problems
     {
         public static Problem GetModelFromEntity(ProblemEntity problem)
         {
+            if (problem == null)
+            {
+                return null;
+            }
+
             return new Problem()
             {
                 Title = problem.Title,
@@ -21,6 +26,11 @@ namespace CodeBytes.DAL.Problems
 
         public static ProblemEntity GetEntityFromModel(Problem problem)
         {
+            if (problem == null)
+            {
+                return null;
+            }
+
             return new ProblemEntity()
             {
                 Title = problem.Title,

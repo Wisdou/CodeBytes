@@ -22,7 +22,7 @@ namespace CodeBytes.DAL.Problems
 
         public Problem Get(int id)
         {
-            ProblemEntity problem = this._context.Problems.AsNoTracking().First(x => x.ID == id);
+            ProblemEntity problem = this._context.Problems.AsNoTracking().FirstOrDefault(x => x.ID == id);
 
             return ProblemMapping.GetModelFromEntity(problem);
         }
@@ -49,18 +49,33 @@ namespace CodeBytes.DAL.Problems
 
         public void Save(Problem model)
         {
+            if (model == null)
+            {
+                return;
+            }
+
             this._context.Problems.Add(ProblemMapping.GetEntityFromModel(model));
             this._context.SaveChanges();
         }
 
-        public async Task SaveAsync(Problem entity)
+        public async Task SaveAsync(Problem model)
         {
-            await this._context.Problems.AddAsync(ProblemMapping.GetEntityFromModel(entity));
+            if (model == null)
+            {
+                return;
+            }
+
+            await this._context.Problems.AddAsync(ProblemMapping.GetEntityFromModel(model));
             await this._context.SaveChangesAsync();
         }
 
         public void SaveRange(IEnumerable<Problem> models)
         {
+            if (models == null)
+            {
+                return;
+            }
+
             IEnumerable<ProblemEntity> entitiesForSave = models.Select(problem => ProblemMapping.GetEntityFromModel(problem));
             this._context.Problems.AddRange(entitiesForSave);
             this._context.SaveChanges();
@@ -68,6 +83,11 @@ namespace CodeBytes.DAL.Problems
 
         public async Task SaveRangeAsync(IEnumerable<Problem> models)
         {
+            if (models == null)
+            {
+                return;
+            }
+
             IEnumerable<ProblemEntity> entitiesForSave = models.Select(problem => ProblemMapping.GetEntityFromModel(problem));
             await this._context.Problems.AddRangeAsync(entitiesForSave);
             await this._context.SaveChangesAsync();
