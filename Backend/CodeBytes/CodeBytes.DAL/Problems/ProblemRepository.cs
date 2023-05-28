@@ -44,7 +44,7 @@ namespace CodeBytes.DAL.Problems
 
         public async Task<Problem> GetAsync(int id)
         {
-            ProblemEntity problem = this._context.Problems.Include(x => x.Tags).FirstOrDefault(x => x.ID == id);
+            ProblemEntity problem = await this._context.Problems.Include(x => x.Tags).AsNoTracking().FirstOrDefaultAsync(x => x.ID == id);
             return ProblemMapping.GetModelFromEntity(problem);
         }
 

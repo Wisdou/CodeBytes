@@ -43,7 +43,6 @@ namespace CodeBytes.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("problems")]
         public async Task<IActionResult> GetProblems()
         {
             var problems = await this._service.GetProblemsAsync();
