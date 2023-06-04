@@ -1,4 +1,14 @@
 .container {
-    max-width: 1600px;
+    max-width: 1200px;
     margin: auto;
+}
+
+::ng-deep{
+    app-problems-table{
+        & > table{
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            border-radius: 20px;
+            width: 100%;
+        }
+    }
 }

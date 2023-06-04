@@ -13,6 +13,10 @@ import {TuiToggleModule} from '@taiga-ui/kit';
 import { ChartsIslandsComponent } from './components/charts-islands/charts-islands.component';
 import { MainHeaderComponent } from './components/main-header/main-header.component';
 import {TuiAvatarModule} from '@taiga-ui/kit';
+import {TuiRingChartModule} from '@taiga-ui/addon-charts';
+import { HttpClientModule } from '@angular/common/http';
+import {TuiTablePaginationModule} from '@taiga-ui/addon-table';
+import {TuiInputModule} from '@taiga-ui/kit';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,10 @@ import {TuiAvatarModule} from '@taiga-ui/kit';
     ReactiveFormsModule,
     TuiToggleModule,
     TuiAvatarModule,
+    TuiRingChartModule,
+    HttpClientModule,
+    TuiTablePaginationModule,
+    TuiInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

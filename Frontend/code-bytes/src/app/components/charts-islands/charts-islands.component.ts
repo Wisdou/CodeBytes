@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-charts-islands',
@@ -8,7 +7,17 @@ import { FormControl, FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartsIslandsComponent {
-  testForm = new FormGroup({
-    testValue: new FormControl(true),
-  });
+  private readonly labels = ['Food', 'Cafe', 'Open Source', 'Taxi', 'other'];
+  readonly value = [13769, 12367, 10172, 3018, 2592];
+  readonly total = [...this.value].reduce((acc, x) => acc + x, 0);
+
+  index = NaN;
+
+  get sum(): number {
+      return Number.isNaN(this.index) ? this.total : this.value[this.index];
+  }
+
+  get label(): string {
+      return Number.isNaN(this.index) ? 'Total' : this.labels[this.index];
+  }
 }

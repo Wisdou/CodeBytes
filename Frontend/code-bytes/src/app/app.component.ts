@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { ProblemService, Problem } from './services/problem.service';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,9 @@ import { FormControl, FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'code-bytes';
+  problems$: Observable<Problem[]> = of([]);
+
+  constructor(private problemService: ProblemService){
+    this.problems$ = problemService.getProblems();
+  }
 }

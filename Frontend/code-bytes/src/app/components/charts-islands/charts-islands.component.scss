@@ -1,9 +1,21 @@
 .container {
-  max-width: 62.5rem;
+  margin: 20px 0px;
+  width: 100%;
 }
-.some-figure {
-  border-radius: 100%;
-  width: 3rem;
-  height: 3rem;
-  background-color: var(--tui-secondary-active);
+
+.row{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.graph_column{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  width: 250px;
+  background-color: var(--tui-base-02);
+  border-radius: 10px;
 }

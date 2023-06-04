@@ -41,6 +41,19 @@ namespace CodeBytes.API
             services.AddScoped<IProblemRepository, ProblemRepository>();
             services.AddScoped<IProblemService, ProblemService>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowedCorsOrigins",
+                    builder =>
+                    {
+                        builder
+                            .SetIsOriginAllowed((_) => true)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });
+
             var connectionString = Configuration.GetConnectionString("Postgres");
             services.AddDbContext<CodeByteContext>(options => options.UseNpgsql(connectionString));
 
@@ -62,6 +75,7 @@ namespace CodeBytes.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CodeBytes.API v1"));
             }
 
+            app.UseCors("AllowedCorsOrigins");
             app.UseHttpsRedirection();
 
             app.UseRouting();

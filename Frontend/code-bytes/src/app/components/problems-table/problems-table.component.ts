@@ -1,60 +1,45 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
- 
-interface User {
-    readonly name: string;
-    readonly email: string;
-    readonly status: 'alive' | 'deceased';
-    readonly tags: readonly string[];
-}
- 
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Problem } from '../../services/problem.service';
+import { tuiTablePaginationOptionsProvider } from '@taiga-ui/addon-table';
+
 @Component({
   selector: 'app-problems-table',
   templateUrl: './problems-table.component.html',
-  styleUrls: ['./problems-table.component.scss']
+  styleUrls: ['./problems-table.component.scss'],
+  providers: [
+    tuiTablePaginationOptionsProvider({
+      showPages: false,
+    }),
+  ],
 })
 export class ProblemsTableComponent {
-  readonly columns = ['name', 'email', 'status', 'tags', 'actions'];
- 
-  users: readonly User[] = [
-      {
-          name: 'Michael Palin',
-          email: 'm.palin@montypython.com',
-          status: 'alive',
-          tags: ['Funny'],
-      },
-      {
-          name: 'Eric Idle',
-          email: 'e.idle@montypython.com',
-          status: 'alive',
-          tags: ['Funny', 'Music'],
-      },
-      {
-          name: 'John Cleese',
-          email: 'j.cleese@montypython.com',
-          status: 'alive',
-          tags: ['Funny', 'Tall', 'Actor'],
-      },
-      {
-          name: 'Terry Jones',
-          email: '',
-          status: 'deceased',
-          tags: ['Funny', 'Director'],
-      },
-      {
-          name: 'Terry Gilliam',
-          email: 't.gilliam@montypython.com',
-          status: 'alive',
-          tags: ['Funny', 'Director'],
-      },
-      {
-          name: 'Graham Chapman',
-          email: '',
-          status: 'deceased',
-          tags: ['Funny', 'King Arthur'],
-      },
-  ];
+  readonly columns: string[] = ['title', 'description', 'status', 'tags'];
+  readonly sizeOptions = [10, 50, 100];
+  private page: number = 0;
+  private size: number = this.sizeOptions[0];
+  
+  startsWith: string = '';
 
-  remove(item: User): void {
-      this.users = this.users.filter(user => user !== item);
+  @Input() problems: Problem[] = [];
+
+  constructor() {}
+
+  get total() {
+    return this.problems.length;
+  }
+
+  get shownProblems() {
+    return this.problems.slice(
+      this.size * this.page,
+      this.size * (this.page + 1)
+    );
+  }
+
+  onPageChange(page: number) {
+    this.page = page;
+  }
+
+  onSizeChange(size: number) {
+    this.size = size;
   }
 }
