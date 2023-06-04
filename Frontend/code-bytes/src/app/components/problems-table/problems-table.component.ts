@@ -15,21 +15,25 @@ import { tuiTablePaginationOptionsProvider } from '@taiga-ui/addon-table';
 export class ProblemsTableComponent {
   readonly columns: string[] = ['title', 'description', 'status', 'tags'];
   readonly sizeOptions = [10, 50, 100];
-  private page: number = 0;
+  page: number = 0;
   private size: number = this.sizeOptions[0];
-  
-  startsWith: string = '';
+  private _startsWith: string = '';
+
+  set startsWith(val: string){
+    this.page = 0;
+    this._startsWith = val;
+  }
 
   @Input() problems: Problem[] = [];
 
   constructor() {}
 
   get total() {
-    return this.problems.length;
+    return this.problems.filter(x => x.title.startsWith(this._startsWith)).length;
   }
 
   get shownProblems() {
-    return this.problems.slice(
+    return this.problems.filter(x => x.title.startsWith(this._startsWith)).slice(
       this.size * this.page,
       this.size * (this.page + 1)
     );
