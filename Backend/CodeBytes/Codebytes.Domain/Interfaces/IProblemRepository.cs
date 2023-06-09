@@ -17,5 +17,9 @@ namespace CodeBytes.Domain.Interfaces
         Task SaveRangeAsync(IEnumerable<Problem> entities);
         IReadOnlyCollection<Problem> GetAll();
         Task<IReadOnlyCollection<Problem>> GetAllAsync();
+        IReadOnlyCollection<Problem> Get(ProblemFilterParams filter);
+        Task<IReadOnlyCollection<Problem>> GetAsync(ProblemFilterParams filter);
+        int GetTotalCount();
+        Task<int> GetTotalCountAsync();
     }
 }

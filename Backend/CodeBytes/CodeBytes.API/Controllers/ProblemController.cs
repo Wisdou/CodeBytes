@@ -47,11 +47,26 @@ namespace CodeBytes.API.Controllers
         public async Task<IActionResult> GetProblems()
         {
             var problems = await this._service.GetProblemsAsync();
+            var totalCount = await this._service.GetTotalCountAsync();
             var response = new GetProblemsResponse()
             {
+                Total = totalCount,
                 Problems = problems,
             };
-            return Ok(problems);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetProblemsWithFilter([FromBody] ProblemFilterParams problemsFilter)
+        {
+            var problems = await this._service.GetProblemsAsync(problemsFilter);
+            var totalCount = await this._service.GetTotalCountAsync();
+            var response = new GetProblemsResponse()
+            {
+                Total = totalCount,
+                Problems = problems,
+            };
+            return Ok(response);
         }
     }
 }

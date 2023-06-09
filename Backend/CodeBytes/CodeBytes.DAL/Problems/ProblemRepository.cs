@@ -28,6 +28,30 @@ namespace CodeBytes.DAL.Problems
             return ProblemMapping.GetModelFromEntity(problem);
         }
 
+        public IReadOnlyCollection<Problem> Get(ProblemFilterParams filter)
+        {
+            int skipAmount = filter.Paging.Page * filter.Paging.Size;
+            int takeAmount = filter.Paging.Size;
+
+            IReadOnlyCollection<Problem> problems = this._context.Problems.Include(x => x.Tags).AsNoTracking().Where(problem => problem.Title.StartsWith(filter.StartsWith)).
+                Skip(skipAmount).Take(takeAmount).Select(problem => ProblemMapping.GetModelFromEntity(problem)).
+                ToList().AsReadOnly();
+
+            return problems;
+        }
+        public async Task<IReadOnlyCollection<Problem>> GetAsync(ProblemFilterParams filter)
+        {
+            int skipAmount = filter.Paging.Page * filter.Paging.Size;
+            int takeAmount = filter.Paging.Size;
+
+            List<Problem> problems = await this._context.Problems.Include(x => x.Tags).AsNoTracking().Where(problem => problem.Title.StartsWith(filter.StartsWith)).
+                Skip(skipAmount).Take(takeAmount).Select(problem => ProblemMapping.GetModelFromEntity(problem)).
+                ToListAsync();
+
+            return problems.AsReadOnly();
+        }
+
+
         public IReadOnlyCollection<Problem> GetAll()
         {
             List<ProblemEntity> problems = this._context.Problems.Include(x => x.Tags).AsNoTracking().ToList();
@@ -92,6 +116,17 @@ namespace CodeBytes.DAL.Problems
             IEnumerable<ProblemEntity> entitiesForSave = models.Select(problem => ProblemMapping.GetEntityFromModel(problem));
             await this._context.Problems.AddRangeAsync(entitiesForSave);
             await this._context.SaveChangesAsync();
+        }
+
+        public int GetTotalCount()
+        {
+            return this._context.Problems.Count();
+        }
+
+        public async Task<int> GetTotalCountAsync()
+        {
+            int result = await this._context.Problems.CountAsync();
+            return result;
         }
     }
 }

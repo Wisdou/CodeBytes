@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 
 export interface ProblemsDTO{
+  total: number,
   problems: Problem[];
 }
 
@@ -21,6 +22,25 @@ export interface Problem {
   tags: ProblemTag[];
 }
 
+export interface ProblemPaging{
+  size: number;
+  page: number;
+}
+
+export class ProblemFilter{
+  constructor(public paging: ProblemPaging, public startsWith: string){}
+
+  static getDefault(): ProblemFilter {
+    return {
+      startsWith: "",
+      paging: {
+        size: 10,
+        page: 0,
+      }
+    };
+  };
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -29,12 +49,11 @@ export class ProblemService {
   constructor(private httpClient: HttpClient) {}
 
   getProblems() {
-    return this.httpClient.get<ProblemsDTO>(this.problemsUrl).pipe(map((x) => x.problems));
+    return this.httpClient.get<ProblemsDTO>(this.problemsUrl);
   }
 
-  getProblemsWithTitle(text: string) {
-    let problemUrl = `{this.getProblems}?title={text}`;
-    return this.httpClient.get<ProblemsDTO>(problemUrl).pipe(map((x) => x.problems));
+  getProblemsWithFilter(filter: ProblemFilter) {
+    return this.httpClient.post<ProblemsDTO>(this.problemsUrl, filter);
   }
 
   getProblem(id: number) {

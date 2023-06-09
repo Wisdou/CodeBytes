@@ -17,6 +17,7 @@ import {TuiRingChartModule} from '@taiga-ui/addon-charts';
 import { HttpClientModule } from '@angular/common/http';
 import {TuiTablePaginationModule} from '@taiga-ui/addon-table';
 import {TuiInputModule} from '@taiga-ui/kit';
+import {TuiLoaderModule} from '@taiga-ui/core';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {TuiInputModule} from '@taiga-ui/kit';
     HttpClientModule,
     TuiTablePaginationModule,
     TuiInputModule,
+    TuiLoaderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -57,5 +57,27 @@ namespace CodeBytes.API.Services
             IReadOnlyCollection<Problem> problems = await this._repository.GetAllAsync();
             return problems;
         }
+
+        public IReadOnlyCollection<Problem> GetProblems(ProblemFilterParams problemFilter)
+        {
+            return this._repository.Get(problemFilter);
+        }
+
+        public async Task<IReadOnlyCollection<Problem>> GetProblemsAsync(ProblemFilterParams problemFilter)
+        {
+            IReadOnlyCollection<Problem> problems = await this._repository.GetAsync(problemFilter);
+            return problems;
+        }
+
+        public int GetTotalCount()
+        {
+            return this._repository.GetTotalCount();
+        }
+
+        public async Task<int> GetTotalCountAsync()
+        {
+            int totalCount = await this._repository.GetTotalCountAsync();
+            return totalCount;
+        }
     }
 }

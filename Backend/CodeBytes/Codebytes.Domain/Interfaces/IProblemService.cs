@@ -17,6 +17,8 @@ namespace CodeBytes.Domain.Interfaces
 
         public IReadOnlyCollection<Problem> GetProblems();
 
+        public IReadOnlyCollection<Problem> GetProblems(ProblemFilterParams problemFilter);
+
         public Task SaveProblemAsync(Problem problemDTO);
 
         public Task SaveProblemsAsync(IEnumerable<Problem> problemDTOs);
@@ -24,5 +26,9 @@ namespace CodeBytes.Domain.Interfaces
         public Task<Problem> GetProblemAsync(int id);
 
         public Task<IReadOnlyCollection<Problem>> GetProblemsAsync();
+
+        public Task<IReadOnlyCollection<Problem>> GetProblemsAsync(ProblemFilterParams problemFilter);
+        int GetTotalCount();
+        Task<int> GetTotalCountAsync();
     }
 }
