@@ -30,5 +30,7 @@ namespace CodeBytes.Domain.Interfaces
         public Task<IReadOnlyCollection<Problem>> GetProblemsAsync(ProblemFilterParams problemFilter);
         int GetTotalCount();
         Task<int> GetTotalCountAsync();
+        int GetTotalCount(ProblemFilterParams filter);
+        Task<int> GetTotalCountAsync(ProblemFilterParams filter);
     }
 }

@@ -60,7 +60,7 @@ namespace CodeBytes.API.Controllers
         public async Task<IActionResult> GetProblemsWithFilter([FromBody] ProblemFilterParams problemsFilter)
         {
             var problems = await this._service.GetProblemsAsync(problemsFilter);
-            var totalCount = await this._service.GetTotalCountAsync();
+            var totalCount = await this._service.GetTotalCountAsync(problemsFilter);
             var response = new GetProblemsResponse()
             {
                 Total = totalCount,

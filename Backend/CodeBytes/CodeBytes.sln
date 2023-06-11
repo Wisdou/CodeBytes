@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.33424.131
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBytes.API", "CodeBytes.API\CodeBytes.API.csproj", "{1B502855-C940-40AE-906E-CA96C4436C08}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBytes.Reader.Codewars",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBytes.DAL", "CodeBytes.DAL\CodeBytes.DAL.csproj", "{270A9879-2CC8-4E29-90BD-4788092FB033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBytes.Domain", "CodeBytes.Domain\CodeBytes.Domain.csproj", "{367EA784-0DAB-4469-BB70-5AB8104ED96D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBytes.Domain", "CodeBytes.Domain\CodeBytes.Domain.csproj", "{367EA784-0DAB-4469-BB70-5AB8104ED96D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBytes.Reader.Codewars.Testcases", "CodeBytes.Reader.Codewars.Testcases\CodeBytes.Reader.Codewars.Testcases.csproj", "{2882CA0B-A586-43F6-A5F2-8E9415996F86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{367EA784-0DAB-4469-BB70-5AB8104ED96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{367EA784-0DAB-4469-BB70-5AB8104ED96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{367EA784-0DAB-4469-BB70-5AB8104ED96D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2882CA0B-A586-43F6-A5F2-8E9415996F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2882CA0B-A586-43F6-A5F2-8E9415996F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2882CA0B-A586-43F6-A5F2-8E9415996F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2882CA0B-A586-43F6-A5F2-8E9415996F86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -128,5 +128,16 @@ namespace CodeBytes.DAL.Problems
             int result = await this._context.Problems.CountAsync();
             return result;
         }
+
+        public int GetTotalCount(ProblemFilterParams filter)
+        {
+            return this._context.Problems.Count(x => x.Title.StartsWith(filter.StartsWith));
+        }
+
+        public async Task<int> GetTotalCountAsync(ProblemFilterParams filter)
+        {
+            int result = await this._context.Problems.CountAsync(x => x.Title.StartsWith(filter.StartsWith));
+            return result;
+        }
     }
 }

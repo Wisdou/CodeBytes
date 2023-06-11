@@ -79,5 +79,16 @@ namespace CodeBytes.API.Services
             int totalCount = await this._repository.GetTotalCountAsync();
             return totalCount;
         }
+
+        public int GetTotalCount(ProblemFilterParams filter)
+        {
+            return this._repository.GetTotalCount(filter);
+        }
+
+        public async Task<int> GetTotalCountAsync(ProblemFilterParams filter)
+        {
+            int totalCount = await this._repository.GetTotalCountAsync(filter);
+            return totalCount;
+        }
     }
 }
