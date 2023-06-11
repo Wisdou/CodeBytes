@@ -14,7 +14,7 @@ import { BehaviorSubject, debounce, debounceTime, of, tap } from 'rxjs';
   ],
 })
 export class ProblemsTableComponent {
-  readonly columns: string[] = ['title', 'description', 'status', 'tags'];
+  readonly columns: string[] = ['title', 'description', 'difficulty', 'tags'];
   readonly sizeOptions = [10, 50, 100];
   page: number = 0;
   private size: number = this.sizeOptions[0];
@@ -22,7 +22,7 @@ export class ProblemsTableComponent {
   totalCount: number = 0;
   loading: boolean = false;
   currentFilter$: BehaviorSubject<ProblemFilter>;
-  
+
   set startsWith(val: string) {
     this.page = 0;
     this._startsWith = val;
@@ -70,5 +70,19 @@ export class ProblemsTableComponent {
   onSizeChange(size: number) {
     this.size = size;
     this.currentFilter$.next(this.filter);
+  }
+
+  readonly statusByDifficulty: Map<string, string> = new Map<string, string>(
+    [
+      ['Easy', 'color-3'],
+      ['Medium', 'color-7'],
+      ['Hard', 'color-5'],
+      ['Unknown', 'color-21']
+    ]
+  );
+
+  difficultyColor(difficulty: string): string{
+    console.log(this.statusByDifficulty);
+    return this.statusByDifficulty.get(difficulty) || 'color-22';
   }
 }

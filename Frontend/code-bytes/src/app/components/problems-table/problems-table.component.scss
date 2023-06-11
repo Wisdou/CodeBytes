@@ -1,29 +1,35 @@
 td,
 th {
-    white-space: nowrap;
-    border-color: transparent;
-    border-right-color: var(--tui-base-04);
- 
-    &:last-child {
-        border-right-color: transparent;
-    }
+  white-space: nowrap;
+  border-color: transparent;
+  border-right-color: var(--tui-base-04);
+
+  &:last-child {
+    border-right-color: transparent;
+  }
 }
- 
+
 tbody {
-    border-color: transparent;
+  border-color: transparent;
 }
- 
+
 tr:nth-child(even) td {
-    background: var(--tui-base-02);
+  background: var(--tui-base-02);
 }
- 
+
 .remove {
-    tr:hover &,
-    tr:focus-within & {
-        opacity: 1;
-    }
+  tr:hover &,
+  tr:focus-within & {
+    opacity: 1;
+  }
 }
 
 tui-tag {
-    margin: 0px 5px 0px 5px;
+  margin: 0px 5px 0px 5px;
+}
+
+@for $i from 1 through 25 {
+  .color-#{$i} {
+    background-color: var(--tui-support-#{$i}, var(--tui-support-0#{$i})) !important;
+  }
 }

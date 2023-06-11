@@ -1,17 +1,13 @@
 <p tuiTextfieldSize="m" class="filters">
   <tui-input class="input" [(ngModel)]="startsWith"> Find on page </tui-input>
 </p>
-<tui-loader
-  [showLoader]="loading"
-  [inheritColor]="true"
-  [overlay]="true"
->
+<tui-loader [showLoader]="loading" [inheritColor]="true" [overlay]="true">
   <table tuiTable [columns]="columns">
     <thead>
       <tr tuiThGroup>
         <th *tuiHead="'title'" tuiTh>Title</th>
         <th *tuiHead="'description'" tuiTh>Short description</th>
-        <th *tuiHead="'status'" tuiTh>Status</th>
+        <th *tuiHead="'difficulty'" tuiTh>Difficulty</th>
         <th *tuiHead="'tags'" tuiTh [sorter]="null">Tags</th>
       </tr>
     </thead>
@@ -25,8 +21,12 @@
         <td *tuiCell="'description'" tuiTd>
           {{ item.description.substring(0, 15) }}
         </td>
-        <td *tuiCell="'status'" tuiTd>
-          <div [class]="item.status">{{ item.status ?? "Easy" }}</div>
+        <td *tuiCell="'difficulty'" tuiTd>
+          <tui-tag
+            class="tag tui-space_right-1"
+            [value]="item.difficulty"
+            [ngClass]="difficultyColor(item.difficulty)"
+          ></tui-tag>
         </td>
         <td *tuiCell="'tags'" tuiTd>
           <tui-tag

@@ -18,7 +18,7 @@ export interface ProblemTag{
 export interface Problem {
   title: string;
   description: string;
-  // status: 'easy' | 'medium' | 'hard';
+  difficulty: string;
   tags: ProblemTag[];
 }
 

@@ -10,6 +10,7 @@ namespace CodeBytes.DAL.Problems
     public class ProblemEntity
     {
         public int ID { get; set; }
+        public int Difficulty { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public List<ProblemTagEntity> Tags { get; set; }

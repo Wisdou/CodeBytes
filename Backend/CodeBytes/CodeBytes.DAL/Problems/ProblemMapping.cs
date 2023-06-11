@@ -37,6 +37,7 @@ namespace CodeBytes.DAL.Problems
             {
                 Title = problem.Title,
                 Description = problem.Description,
+                Difficulty = problem.Difficulty,
                 Tags = problem.Tags.Select(x => GetModelFromEntity(x)).ToList(),
             };
         }
@@ -52,6 +53,7 @@ namespace CodeBytes.DAL.Problems
             {
                 Title = problem.Title,
                 Description = problem.Description,
+                Difficulty = problem.Difficulty,
                 Tags = problem.Tags.Select(x => GetEntityFromModel(x)).ToList(),
             };
         }
