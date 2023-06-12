@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {TuiTablePaginationModule} from '@taiga-ui/addon-table';
 import {TuiInputModule} from '@taiga-ui/kit';
 import {TuiLoaderModule} from '@taiga-ui/core';
+import {TuiSvgModule} from '@taiga-ui/core';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {TuiLoaderModule} from '@taiga-ui/core';
     TuiTablePaginationModule,
     TuiInputModule,
     TuiLoaderModule,
+    TuiSvgModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
