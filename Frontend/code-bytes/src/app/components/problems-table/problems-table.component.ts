@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Problem, ProblemService, ProblemFilter, ProblemsDTO } from '../../services/problem.service';
 import { tuiTablePaginationOptionsProvider } from '@taiga-ui/addon-table';
-import { BehaviorSubject, debounce, debounceTime, of, tap, Observable } from 'rxjs';
+import { BehaviorSubject, debounce, debounceTime, of, tap, Observable, Subscriber, Subscription, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-problems-table',
@@ -13,8 +13,8 @@ import { BehaviorSubject, debounce, debounceTime, of, tap, Observable } from 'rx
     }),
   ],
 })
-export class ProblemsTableComponent implements OnInit {
-  @Input() dataSource: (filter: ProblemFilter) => Observable<ProblemsDTO> = () => of({total: 0, problems: [] });
+export class ProblemsTableComponent implements OnInit, OnDestroy {
+  @Input() dataSource: (filter: ProblemFilter, initFunc: () => void) => Observable<ProblemsDTO> = () => of({total: 0, problems: [] });
 
   readonly columns: string[] = ['title', 'description', 'difficulty', 'tags'];
   readonly sizeOptions = [10, 50, 100];
@@ -23,11 +23,13 @@ export class ProblemsTableComponent implements OnInit {
   totalCount: number = 0;
   page: number = 0;
   loading: boolean = false;
+  updateProblems$: Subject<ProblemFilter>;
+  problemSubscription: Subscription;
 
   set startsWith(val: string) {
     this.page = 0;
     this._startsWith = val;
-    this.updateProblems(this.filter);
+    this.updateProblems$.next(this.filter);
   }
 
   problems: Problem[] = [];
@@ -49,16 +51,24 @@ export class ProblemsTableComponent implements OnInit {
       page: this.page,
     };
     let filter: ProblemFilter = new ProblemFilter(paging, this._startsWith);
-    this.updateProblems(this.filter);
+    this.updateProblems$ = new Subject<ProblemFilter>().pipe(debounceTime(300)) as Subject<ProblemFilter>;
+    this.problemSubscription = this.updateProblems$.subscribe(filter => {
+      this.loading = true;
+      this.cdRef.markForCheck();
+      this.updateProblems(this.filter);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.problemSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.updateProblems(this.filter);
+    this.updateProblems$.next(this.filter);
   }
 
   updateProblems(filter: ProblemFilter){
-    this.loading = true;
-    let subscription = this.dataSource(filter).subscribe((problemsPage) => {
+    this.dataSource(filter, () => {}).subscribe((problemsPage) => {
       this.totalCount = problemsPage.total;
       this.problems = problemsPage.problems;
       this.loading = false;
@@ -68,12 +78,12 @@ export class ProblemsTableComponent implements OnInit {
 
   onPageChange(page: number) {
     this.page = page;
-    this.updateProblems(this.filter);
+    this.updateProblems$.next(this.filter);
   }
 
   onSizeChange(size: number) {
     this.size = size;
-    this.updateProblems(this.filter);
+    this.updateProblems$.next(this.filter);
   }
 
   readonly statusByDifficulty: Map<string, string> = new Map<string, string>(

@@ -11,5 +11,6 @@ export class BurgerButtonComponent {
 
   toggle(){
     this.isOpenFlag = !this.isOpenFlag;
+    this.isOpen.next(this.isOpenFlag);
   }
 }
