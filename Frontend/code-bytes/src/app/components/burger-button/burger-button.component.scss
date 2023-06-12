@@ -1,0 +1,62 @@
+.menu_button {
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+}
+.menu_button,
+.menu_button span {
+	display: inline-block;
+	box-sizing: border-box;
+	-webkit-transition: all .4s;
+	   -moz-transition: all .4s;
+	    -ms-transition: all .4s;
+	     -o-transition: all .4s;
+	        transition: all .4s;
+}
+.menu_button {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 99992;
+	width: 3rem;
+	height: 2.2rem;
+ -webkit-transform: translate(-50%, -50%) scale(0.5);
+          transform: translate(-50%, -50%) scale(0.5);
+}
+.menu_button_line {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 0.2rem;
+	background: #000;
+	border-radius: 0.2rem;
+}
+.menu_button .menu_button_line.top {
+	top: 0;
+}
+.menu_button .menu_button_line.mid {
+	top: 1rem; /* (heght(.menu_button)  - height(.menu_button span)) / 2 */
+}
+.menu_button .menu_button_line.botm {
+	bottom: 0;
+}
+.menu_button.on_menu .menu_button_line.top {
+	-webkit-transform: translateY(1rem) rotate(-45deg);
+	   -moz-transform: translateY(1rem) rotate(-45deg);
+	    -ms-transform: translateY(1rem) rotate(-45deg);
+	     -o-transform: translateY(1rem) rotate(-45deg);
+	        transform: translateY(1rem) rotate(-45deg);
+}
+.menu_button.on_menu .menu_button_line.mid {
+	opacity: 0;
+}
+.menu_button.on_menu .menu_button_line.botm {
+	-webkit-transform: translateY(-1rem) rotate(45deg);
+	   -moz-transform: translateY(-1rem) rotate(45deg);
+	    -ms-transform: translateY(-1rem) rotate(45deg);
+	     -o-transform: translateY(-1rem) rotate(45deg);
+	        transform: translateY(-1rem) rotate(45deg);
+}
