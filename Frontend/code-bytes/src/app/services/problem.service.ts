@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { delay, map } from 'rxjs';
 
 export interface ProblemsDTO{
   total: number,
