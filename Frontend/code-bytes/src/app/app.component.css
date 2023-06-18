@@ -1,1 +1,1 @@
-.container{max-width:1200px;margin:auto}::ng-deep app-problems-table table{box-shadow:rgba(0,0,0,.16) 0px 3px 6px,rgba(0,0,0,.23) 0px 3px 6px;border-radius:20px;width:100%}
+.container{padding:0 50px;max-height:calc(100vh - 65px);overflow-y:auto}.sidebar-content{flex:1 1 auto;max-height:100vh;overflow:hidden}.main-container{margin:0;padding:0;width:100%;display:flex;align-items:stretch;flex-direction:row}::ng-deep app-problems-table table{box-shadow:rgba(0,0,0,.16) 0px 3px 6px,rgba(0,0,0,.23) 0px 3px 6px;border-radius:20px;width:100%}

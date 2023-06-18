@@ -19,13 +19,34 @@ import {TuiTablePaginationModule} from '@taiga-ui/addon-table';
 import {TuiInputModule} from '@taiga-ui/kit';
 import {TuiLoaderModule} from '@taiga-ui/core';
 import {TuiSvgModule} from '@taiga-ui/core';
+import { BurgerButtonComponent } from './components/burger-button/burger-button.component';
+import {TuiAccordionModule} from '@taiga-ui/kit';
+import {TuiSidebarModule} from '@taiga-ui/addon-mobile';
+import {TuiActiveZoneModule} from '@taiga-ui/cdk';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import {RouterModule} from '@angular/router';
+import { ProblemsComponent } from './pages/problems/problems.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProblemComponent } from './pages/problem/problem.component';
+import { CourseComponent } from './pages/course/course.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { CodeEditorComponent } from './components/code-editor/code-editor.component';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProblemsTableComponent,
     ChartsIslandsComponent,
-    MainHeaderComponent
+    MainHeaderComponent,
+    BurgerButtonComponent,
+    SidenavComponent,
+    ProblemsComponent,
+    ProfileComponent,
+    ProblemComponent,
+    CourseComponent,
+    FilterComponent,
+    CodeEditorComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -45,6 +66,19 @@ import {TuiSvgModule} from '@taiga-ui/core';
     TuiInputModule,
     TuiLoaderModule,
     TuiSvgModule,
+    TuiAccordionModule,
+    TuiSidebarModule,
+    TuiActiveZoneModule,
+    MonacoEditorModule,
+    MonacoEditorModule.forRoot(),
+    RouterModule,
+    RouterModule.forRoot([
+      {path: 'problems', component: ProblemsComponent},
+      {path: 'profile', component: ProfileComponent},
+      {path: 'course', component: CourseComponent},
+      {path: 'problem/:id', component: ProblemComponent},
+      {path: '', redirectTo: '/problems', pathMatch: 'full'},
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,23 @@
 .container {
-    max-width: 1200px;
-    margin: auto;
+    padding: 0 50px;
+    max-height: calc(100vh - 65px);
+    overflow-y: auto;
 }
 
+.sidebar-content{
+    flex: 1 1 auto;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.main-container{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+}
 ::ng-deep{
     app-problems-table{
         & table{

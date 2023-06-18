@@ -17,7 +17,7 @@
       [data]="sortedProblems"
     >
       <tr *ngFor="let item of sortedProblems; let index = index" tuiTr>
-        <td *tuiCell="'title'" tuiTd>{{ index + 1 }}. {{ item.title }}</td>
+        <td *tuiCell="'title'" tuiTd><a [routerLink]="['/problem', item.id]">{{ item.id }}. {{ item.title }}</a></td>
         <td *tuiCell="'description'" tuiTd>
           {{ item.description.substring(0, 15) }}
         </td>

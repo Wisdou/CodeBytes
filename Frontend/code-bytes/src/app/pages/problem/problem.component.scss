@@ -1,0 +1,26 @@
+.header-container{
+    margin: 20px 0px;
+}
+
+.container{
+    padding: 30px;
+}
+
+.problem-container{
+    display: flex;
+}
+
+.description-container{
+    display: block;
+    padding: 10px;
+    height: calc(100vh - 100px);
+    width: 800px;
+    background-color: aquamarine;
+}
+
+.editor-container{
+    display: block;
+    height: calc(100vh - 100px);
+    width: 800px;
+    background-color: azure;
+}

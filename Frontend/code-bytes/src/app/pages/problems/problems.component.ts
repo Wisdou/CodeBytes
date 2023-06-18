@@ -1,25 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, of, debounceTime, tap, switchMap } from 'rxjs';
-import {
-  ProblemService,
-  Problem,
-  ProblemFilter,
-  ProblemsDTO,
-} from './services/problem.service';
+import { Component } from '@angular/core';
 import * as _ from 'lodash';
-import { SideNavToggle } from './components/sidenav/sidenav.component';
+import { Observable, of, switchMap, tap } from 'rxjs';
+import { ProblemFilter, ProblemsDTO, ProblemService } from 'src/app/services/problem.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-problems',
+  templateUrl: './problems.component.html',
+  styleUrls: ['./problems.component.scss']
 })
-export class AppComponent {
-  isSideNavCollapsed: boolean = false;
-  screenWidth: number = 0;
-
+export class ProblemsComponent {
   problemFunction: (
     filter: ProblemFilter,
     initFunc: () => void
@@ -56,10 +45,5 @@ export class AppComponent {
         switchMap(() => problems$)
       );
     };
-  }
-
-  onToggleSideNav(event: SideNavToggle){
-    this.screenWidth = event.screenWidth;
-    this.isSideNavCollapsed = event.collapsed;
   }
 }

@@ -1,9 +1,11 @@
 <tui-root>
-  <app-main-header>
-  </app-main-header>
-  <div class="container">
-    <app-charts-islands></app-charts-islands>
-    <app-problems-table></app-problems-table>
-    <router-outlet></router-outlet>
+  <div class="main-container">
+    <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+    <div class="sidebar-content">
+      <app-main-header> </app-main-header>
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
 </tui-root>

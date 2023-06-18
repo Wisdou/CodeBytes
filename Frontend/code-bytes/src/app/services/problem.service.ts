@@ -16,6 +16,7 @@ export interface ProblemTag{
 }
 
 export interface Problem {
+  id: number;
   title: string;
   description: string;
   difficulty: string;
@@ -57,7 +58,7 @@ export class ProblemService {
   }
 
   getProblem(id: number) {
-    let problemUrl = `{this.getProblems}/{id}`;
+    let problemUrl = `${this.problemsUrl}${id}`;
     return this.httpClient.get<ProblemByIdDTO>(problemUrl).pipe(map((x) => x.problem));
   }
 }

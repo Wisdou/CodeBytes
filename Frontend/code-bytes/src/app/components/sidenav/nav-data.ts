@@ -1,18 +1,18 @@
 export const navbarData = [
     {
-        routeLink: 'dashboard',
-        icon: 'fal fa-home',
-        label: 'Dashboard'
+        routeLink: '/problems',
+        icon: 'fal fa-table',
+        label: 'Problems'
     },
     {
-        routeLink: 'dashboard',
-        icon: 'fal fa-home',
-        label: 'Dashboard'
+        routeLink: '/profile',
+        icon: 'fal fa-user',
+        label: 'Profile'
     },
     {
-        routeLink: 'dashboard',
-        icon: 'fal fa-home',
-        label: 'Dashboard'
+        routeLink: '/course',
+        icon: 'fal fa-info-circle',
+        label: 'Course'
     },
     {
         routeLink: 'dashboard',

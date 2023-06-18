@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="header-container">
+        <h1>{{currentProblem?.title ?? 'Not assigned'}}</h1>
+    </div>
+    <div class="problem-container">
+        <div class="description-container">
+            <p>{{currentProblem?.description ?? 'Not assigned'}}</p>
+        </div>
+        <div class="editor-container">
+            <app-code-editor></app-code-editor>
+        </div>
+    </div>
+</div>
