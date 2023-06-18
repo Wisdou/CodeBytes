@@ -35,6 +35,7 @@ namespace CodeBytes.DAL.Problems
 
             return new Problem()
             {
+                Id = problem.ID,
                 Title = problem.Title,
                 Description = problem.Description,
                 Difficulty = problem.Difficulty,

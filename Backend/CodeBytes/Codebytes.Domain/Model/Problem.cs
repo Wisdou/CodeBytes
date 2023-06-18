@@ -24,7 +24,7 @@ namespace CodeBytes.Domain.Model
                 return Problem.DifficultyMap[this.Difficulty];
             }
         }
-
+        public int Id { get; set; }
         public string Title { get; set; }
 
         [JsonIgnore]
