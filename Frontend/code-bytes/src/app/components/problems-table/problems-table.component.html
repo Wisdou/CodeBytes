@@ -1,6 +1,4 @@
-<p tuiTextfieldSize="m" class="filters">
-  <tui-input class="input" [(ngModel)]="startsWith"> Find by title </tui-input>
-</p>
+<app-filter (filterParamsChange)="onFilterParamsChange($event)"></app-filter>
 <tui-loader [showLoader]="loading" [inheritColor]="true" [overlay]="true">
   <table tuiTable [columns]="columns">
     <thead>

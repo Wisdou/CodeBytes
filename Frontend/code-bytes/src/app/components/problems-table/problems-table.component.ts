@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, O
 import { Problem, ProblemService, ProblemFilter, ProblemsDTO } from '../../services/problem.service';
 import { tuiTablePaginationOptionsProvider } from '@taiga-ui/addon-table';
 import { BehaviorSubject, debounce, debounceTime, of, tap, Observable, Subscriber, Subscription, Subject } from 'rxjs';
+import { FilterParams } from '../filter/filter.component';
 
 @Component({
   selector: 'app-problems-table',
@@ -67,6 +68,10 @@ export class ProblemsTableComponent implements OnInit, OnDestroy {
     this.updateProblems$.next(this.filter);
   }
 
+  onFilterParamsChange(filterParams: FilterParams){
+    this.startsWith = filterParams.startsWith;
+  }
+  
   updateProblems(filter: ProblemFilter){
     this.dataSource(filter, () => {}).subscribe((problemsPage) => {
       this.totalCount = problemsPage.total;
