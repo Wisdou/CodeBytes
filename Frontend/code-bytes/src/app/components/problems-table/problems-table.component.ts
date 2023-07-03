@@ -18,9 +18,18 @@ export class ProblemsTableComponent implements OnInit, OnDestroy {
   @Input() dataSource: (filter: ProblemFilter, initFunc: () => void) => Observable<ProblemsDTO> = () => of({total: 0, problems: [] });
 
   readonly columns: string[] = ['title', 'description', 'difficulty', 'tags'];
+  readonly difficultyDict: Map<string, number> = new Map(
+    [
+      ['Easy', 1],
+      ['Medium', 2],
+      ['Hard', 3],
+      ['Unknown', -1],
+    ]
+  );
   readonly sizeOptions = [10, 50, 100];
   private size: number = this.sizeOptions[0];
   private _startsWith: string = '';
+  private possibleDifficulties: number[] = [];
   totalCount: number = 0;
   page: number = 0;
   loading: boolean = false;
@@ -28,9 +37,7 @@ export class ProblemsTableComponent implements OnInit, OnDestroy {
   problemSubscription: Subscription;
 
   set startsWith(val: string) {
-    this.page = 0;
     this._startsWith = val;
-    this.updateProblems$.next(this.filter);
   }
 
   problems: Problem[] = [];
@@ -40,7 +47,7 @@ export class ProblemsTableComponent implements OnInit, OnDestroy {
       size: this.size,
       page: this.page,
     };
-    let filter: ProblemFilter = new ProblemFilter(paging, this._startsWith);
+    let filter: ProblemFilter = new ProblemFilter(paging, this._startsWith, this.possibleDifficulties);
     return filter; 
   }
 
@@ -51,7 +58,7 @@ export class ProblemsTableComponent implements OnInit, OnDestroy {
       size: this.size,
       page: this.page,
     };
-    let filter: ProblemFilter = new ProblemFilter(paging, this._startsWith);
+    let filter: ProblemFilter = new ProblemFilter(paging);
     this.updateProblems$ = new Subject<ProblemFilter>().pipe(debounceTime(300)) as Subject<ProblemFilter>;
     this.problemSubscription = this.updateProblems$.subscribe(filter => {
       this.loading = true;
@@ -70,6 +77,9 @@ export class ProblemsTableComponent implements OnInit, OnDestroy {
 
   onFilterParamsChange(filterParams: FilterParams){
     this.startsWith = filterParams.startsWith;
+    this.possibleDifficulties = filterParams.difficulties.map(x => this.difficultyDict.get(x) ?? -1);
+    this.page = 0;
+    this.updateProblems$.next(this.filter);
   }
   
   updateProblems(filter: ProblemFilter){

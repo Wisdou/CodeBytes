@@ -18,6 +18,7 @@ namespace CodeBytes.Domain.Model
         public Paging Paging { get; set; }
         public string StartsWith { get; set; }
 
+        public int[] Difficulties { get; set; }
         public ProblemFilterParams() { }
     }
 }

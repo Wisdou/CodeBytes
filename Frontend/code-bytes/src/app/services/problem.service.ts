@@ -29,7 +29,7 @@ export interface ProblemPaging{
 }
 
 export class ProblemFilter{
-  constructor(public paging: ProblemPaging, public startsWith: string){}
+  constructor(public paging: ProblemPaging, public startsWith?: string, public difficulties?: number[]){}
 
   static getDefault(): ProblemFilter {
     return {

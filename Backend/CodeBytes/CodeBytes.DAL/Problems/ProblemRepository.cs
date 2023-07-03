@@ -33,7 +33,18 @@ namespace CodeBytes.DAL.Problems
             int skipAmount = filter.Paging.Page * filter.Paging.Size;
             int takeAmount = filter.Paging.Size;
 
-            IReadOnlyCollection<Problem> problems = this._context.Problems.Include(x => x.Tags).AsNoTracking().Where(problem => problem.Title.StartsWith(filter.StartsWith)).
+            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            if (filter.StartsWith != null && filter.StartsWith != String.Empty)
+            {
+                filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));
+            }
+
+            if (filter.Difficulties != null && filter.Difficulties.Length > 0)
+            {
+                filteredTasks = filteredTasks.Where(x => filter.Difficulties.Contains(x.Difficulty));
+            }
+
+            IReadOnlyCollection<Problem> problems = filteredTasks.Include(x => x.Tags).AsNoTracking().
                 Skip(skipAmount).Take(takeAmount).Select(problem => ProblemMapping.GetModelFromEntity(problem)).
                 ToList().AsReadOnly();
 
@@ -44,7 +55,18 @@ namespace CodeBytes.DAL.Problems
             int skipAmount = filter.Paging.Page * filter.Paging.Size;
             int takeAmount = filter.Paging.Size;
 
-            List<Problem> problems = await this._context.Problems.Include(x => x.Tags).AsNoTracking().Where(problem => problem.Title.StartsWith(filter.StartsWith)).
+            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            if (filter.StartsWith != null && filter.StartsWith != String.Empty)
+            {
+                filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));
+            }
+
+            if (filter.Difficulties != null && filter.Difficulties.Length > 0)
+            {
+                filteredTasks = filteredTasks.Where(x => filter.Difficulties.Contains(x.Difficulty));
+            }
+
+            List<Problem> problems = await filteredTasks.Include(x => x.Tags).AsNoTracking().
                 Skip(skipAmount).Take(takeAmount).Select(problem => ProblemMapping.GetModelFromEntity(problem)).
                 ToListAsync();
 
@@ -131,12 +153,35 @@ namespace CodeBytes.DAL.Problems
 
         public int GetTotalCount(ProblemFilterParams filter)
         {
-            return this._context.Problems.Count(x => x.Title.StartsWith(filter.StartsWith));
+            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            if (filter.StartsWith != null && filter.StartsWith != String.Empty)
+            {
+                filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));
+            }
+
+            if (filter.Difficulties != null && filter.Difficulties.Length > 0)
+            {
+                filteredTasks = filteredTasks.Where(x => filter.Difficulties.Contains(x.Difficulty));
+            }
+
+            int result = filteredTasks.Count();
+            return result;
         }
 
         public async Task<int> GetTotalCountAsync(ProblemFilterParams filter)
         {
-            int result = await this._context.Problems.CountAsync(x => x.Title.StartsWith(filter.StartsWith));
+            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            if (filter.StartsWith != null && filter.StartsWith != String.Empty)
+            {
+                filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));
+            }
+
+            if (filter.Difficulties != null && filter.Difficulties.Length > 0)
+            {
+                filteredTasks = filteredTasks.Where(x => filter.Difficulties.Contains(x.Difficulty));
+            }
+
+            int result = await filteredTasks.CountAsync();
             return result;
         }
     }

@@ -3,5 +3,18 @@
     <tui-input class="input" formControlName="startsWith">
       Find by title
     </tui-input>
+    <tui-multi-select
+      placeholder="Ignored text"
+      class="b-form"
+      formControlName="difficulty"
+      [editable]="false"
+    >
+      Task difficulty
+      <tui-data-list-wrapper
+        *tuiDataList
+        tuiMultiSelectGroup
+        [items]="difficulties"
+      ></tui-data-list-wrapper>
+    </tui-multi-select>
   </p>
 </form>
