@@ -32,6 +32,7 @@ import { CourseComponent } from './pages/course/course.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import {TuiDataListWrapperModule, TuiMultiSelectModule} from '@taiga-ui/kit';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,8 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
     TuiSidebarModule,
     TuiActiveZoneModule,
     MonacoEditorModule,
+    TuiDataListWrapperModule,
+    TuiMultiSelectModule,
     MonacoEditorModule.forRoot(),
     RouterModule,
     RouterModule.forRoot([
