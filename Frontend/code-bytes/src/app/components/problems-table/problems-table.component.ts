@@ -47,7 +47,7 @@ export class ProblemsTableComponent implements OnInit, OnDestroy {
       size: this.size,
       page: this.page,
     };
-    let filter: ProblemFilter = new ProblemFilter(paging, this._startsWith, this.possibleDifficulties);
+    let filter: ProblemFilter = new ProblemFilter(paging, this._startsWith, this.possibleDifficulties, 25);
     return filter; 
   }
 

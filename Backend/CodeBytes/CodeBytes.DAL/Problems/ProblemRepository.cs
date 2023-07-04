@@ -44,11 +44,16 @@ namespace CodeBytes.DAL.Problems
                 filteredTasks = filteredTasks.Where(x => filter.Difficulties.Contains(x.Difficulty));
             }
 
-            IReadOnlyCollection<Problem> problems = filteredTasks.Include(x => x.Tags).AsNoTracking().
+            List<Problem> problems = filteredTasks.Include(x => x.Tags).AsNoTracking().
                 Skip(skipAmount).Take(takeAmount).Select(problem => ProblemMapping.GetModelFromEntity(problem)).
-                ToList().AsReadOnly();
+                ToList();
 
-            return problems;
+            if (filter.DescriptionSize > 0)
+            {
+                problems.ForEach(x => x.Description = x.Description.Substring(0, filter.DescriptionSize));
+            }
+
+            return problems.AsReadOnly();
         }
         public async Task<IReadOnlyCollection<Problem>> GetAsync(ProblemFilterParams filter)
         {
@@ -69,6 +74,11 @@ namespace CodeBytes.DAL.Problems
             List<Problem> problems = await filteredTasks.Include(x => x.Tags).AsNoTracking().
                 Skip(skipAmount).Take(takeAmount).Select(problem => ProblemMapping.GetModelFromEntity(problem)).
                 ToListAsync();
+
+            if (filter.DescriptionSize > 0)
+            {
+                problems.ForEach(x => x.Description = x.Description.Substring(0, filter.DescriptionSize));
+            }
 
             return problems.AsReadOnly();
         }
