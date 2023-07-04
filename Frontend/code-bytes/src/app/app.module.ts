@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {TuiRootModule} from '@taiga-ui/core';
+import {TuiRootModule, TuiTextfieldControllerModule} from '@taiga-ui/core';
 import {TuiTableModule} from '@taiga-ui/addon-table';
 import {TuiTagModule} from '@taiga-ui/kit';
 import {TuiIslandModule} from '@taiga-ui/kit';
@@ -73,6 +73,7 @@ import {TuiDataListWrapperModule, TuiMultiSelectModule} from '@taiga-ui/kit';
     MonacoEditorModule,
     TuiDataListWrapperModule,
     TuiMultiSelectModule,
+    TuiTextfieldControllerModule,
     MonacoEditorModule.forRoot(),
     RouterModule,
     RouterModule.forRoot([

@@ -4,10 +4,14 @@
   gap: 5px;
 
   & > tui-input {
-    flex-grow: 4;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 85%;
   }
 
-  & > * {
-    flex-grow: 1;
+  & > tui-multi-select {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 15%;
   }
 }
