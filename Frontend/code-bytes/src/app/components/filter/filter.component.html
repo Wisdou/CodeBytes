@@ -1,5 +1,5 @@
 <form [formGroup]="filterForm">
-  <p tuiTextfieldSize="m" class="filters">
+  <div tuiTextfieldSize="m" class="filters">
     <tui-input class="input" formControlName="startsWith">
       Find by title
     </tui-input>
@@ -17,5 +17,12 @@
         [items]="difficulties"
       ></tui-data-list-wrapper>
     </tui-multi-select>
-  </p>
+  </div>
+  <div class="tags">
+    <tui-tag
+      *ngFor="let tag of filterTags"
+      class="tui-space_right-1"
+      [value]="tag"
+    ></tui-tag>
+  </div>
 </form>

@@ -1,5 +1,7 @@
+import { formatCurrency } from '@angular/common';
 import { Component, Output, OnInit, EventEmitter } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
+import * as _ from 'lodash';
 
 export interface FilterParams{
   startsWith: string;
@@ -20,6 +22,8 @@ export class FilterComponent implements OnInit {
     'Hard'
   ];
 
+  filterTags: string[] = [];
+
   ngOnInit(): void {
     this.filterForm.valueChanges.subscribe((form) => {
       const newFilterParams = {
@@ -27,6 +31,14 @@ export class FilterComponent implements OnInit {
         difficulties: form.difficulty ?? [],
       }
       this.filterParamsChange.emit(newFilterParams);
+      const newFilterTags = [];
+      if (!_.isEmpty(form.startsWith)){
+        newFilterTags.push('Starts with: ' + form.startsWith);
+      }
+      if (!_.isEmpty(form.difficulty) && !_.isNil(form.difficulty)){
+        newFilterTags.push(...form.difficulty);
+      }
+      this.filterTags = newFilterTags;
     })
   }
 
