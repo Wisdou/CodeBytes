@@ -1,13 +1,23 @@
 <div class="container">
-    <div class="header-container">
-        <h1>{{currentProblem?.title ?? 'Not assigned'}}</h1>
+  <div class="header-container">
+    <h1>{{ currentProblem?.title ?? "Not assigned" }}</h1>
+  </div>
+  <div class="problem-container">
+    <div class="description-container">
+      <h2>Description</h2>
+      <p>{{ currentProblem?.description ?? "Not assigned" }}</p>
+      <h2>Tags</h2>
+      <div class="tag-container">
+        <tui-tag
+          *ngFor="let tag of currentProblem.tags"
+          class="tui-space_right-1"
+          [value]="tag.tag"
+          [autoColor]="true"
+        ></tui-tag>
+      </div>
     </div>
-    <div class="problem-container">
-        <div class="description-container">
-            <p>{{currentProblem?.description ?? 'Not assigned'}}</p>
-        </div>
-        <div class="editor-container">
-            <app-code-editor></app-code-editor>
-        </div>
+    <div class="editor-container">
+      <app-code-editor></app-code-editor>
     </div>
+  </div>
 </div>

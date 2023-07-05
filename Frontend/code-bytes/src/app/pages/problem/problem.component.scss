@@ -8,19 +8,32 @@
 
 .problem-container{
     display: flex;
+    gap: 20px;
+    height: calc(100vh - 200px);
 }
 
 .description-container{
     display: block;
-    padding: 10px;
-    height: calc(100vh - 100px);
+    border-radius: 20px;
+    padding: 30px;
+    height: 100%;
+    overflow-y: auto;
     width: 800px;
-    background-color: aquamarine;
+    background-color: darken(#FFF, 5%);
+
+    & > h2{
+        margin: 10px 0px 20px 0px;
+        border-bottom: 2px solid darken(#FFF, 80%);
+    }
+
+    & > .tag-container{
+        display: flex;
+        gap: 10px;
+    }
 }
 
 .editor-container{
     display: block;
-    height: calc(100vh - 100px);
     width: 800px;
     background-color: azure;
 }
