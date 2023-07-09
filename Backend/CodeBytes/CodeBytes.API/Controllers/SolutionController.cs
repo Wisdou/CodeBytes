@@ -1,16 +1,34 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CodeBytes.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class SolutionController : Controller
+    [ApiController]
+    public class SolutionController : ControllerBase
     {
-        [HttpPost]
-        public ActionResult Solution(IFormCollection collection)
+        private readonly IHubContext<SolutionHub> _hub;
+
+        public SolutionController(IHubContext<SolutionHub> hub)
         {
-            return Ok();
+            this._hub = hub;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                await Task.Delay(1000);
+                await this._hub.Clients.All.SendAsync("GetSolution", "Solution");
+            }
+
+            return Ok(new { Message = "Request Completed" });
         }
     }
 }

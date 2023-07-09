@@ -6,15 +6,17 @@
     <div class="description-container">
       <h2>Description</h2>
       <p>{{ currentProblem?.description ?? "Not assigned" }}</p>
-      <h2>Tags</h2>
-      <div class="tag-container">
-        <tui-tag
-          *ngFor="let tag of currentProblem.tags"
-          class="tui-space_right-1"
-          [value]="tag.tag"
-          [autoColor]="true"
-        ></tui-tag>
-      </div>
+      <ng-container *ngIf="currentProblem?.tags">
+        <h2>Tags</h2>
+        <div class="tag-container">
+          <tui-tag
+            *ngFor="let tag of currentProblem.tags"
+            class="tui-space_right-1"
+            [value]="tag.tag"
+            [autoColor]="true"
+          ></tui-tag>
+        </div>
+      </ng-container>
     </div>
     <div class="editor-container">
       <app-code-editor></app-code-editor>

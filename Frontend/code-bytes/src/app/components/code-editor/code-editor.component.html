@@ -1,1 +1,19 @@
-<ngx-monaco-editor class="editor-container" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+<div class="container">
+  <div class="language-selector">
+    <tui-select tuiTextfieldSize="s" [formControl]="problemForm">
+      Character
+      <input tuiTextfield placeholder="Choose language" />
+      <tui-data-list-wrapper
+        *tuiDataList
+        [items]="items"
+      ></tui-data-list-wrapper>
+    </tui-select>
+  </div>
+  <div class="editor-container">
+    <ngx-monaco-editor
+      style="height: 100%"
+      [options]="editorOptions"
+      [(ngModel)]="code"
+    ></ngx-monaco-editor>
+  </div>
+</div>

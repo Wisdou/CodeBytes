@@ -15,7 +15,11 @@
       [data]="sortedProblems"
     >
       <tr *ngFor="let item of sortedProblems; let index = index" tuiTr>
-        <td *tuiCell="'title'" tuiTd><a [routerLink]="['/problem', item.id]">{{ item.id }}. {{ item.title }}</a></td>
+        <td *tuiCell="'title'" tuiTd>
+          <a [routerLink]="['/problem', item.id]"
+            >{{ item.id }}. {{ item.title }}</a
+          >
+        </td>
         <td *tuiCell="'description'" tuiTd>
           {{ item.description.substring(0, 15) }}
         </td>
@@ -27,12 +31,14 @@
           ></tui-tag>
         </td>
         <td *tuiCell="'tags'" tuiTd>
-          <tui-tag
-            *ngFor="let tag of item.tags"
-            class="tui-space_right-1"
-            [value]="tag.tag"
-            [autoColor]="true"
-          ></tui-tag>
+          <ng-container *ngIf="item?.tags">
+            <tui-tag
+              *ngFor="let tag of item.tags"
+              class="tui-space_right-1"
+              [value]="tag.tag"
+              [autoColor]="true"
+            ></tui-tag>
+          </ng-container>
         </td>
       </tr>
     </tbody>

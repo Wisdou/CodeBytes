@@ -20,6 +20,7 @@ using CodeBytes.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using CodeBytes.Domain.Interfaces;
 using CodeBytes.DAL.Seeder;
+using CodeBytes.API.Controllers;
 
 namespace CodeBytes.API
 {
@@ -37,7 +38,7 @@ namespace CodeBytes.API
         {
 
             services.AddControllers();
-
+            services.AddSignalR();
             services.AddScoped<IProblemRepository, ProblemRepository>();
             services.AddScoped<IProblemService, ProblemService>();
 
@@ -66,7 +67,7 @@ namespace CodeBytes.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IProblemRepository repository)
         {
-            DataSeeder.FillUsers(repository).Wait();
+            //DataSeeder.FillUsers(repository).Wait();
 
             if (env.IsDevelopment())
             {
@@ -85,6 +86,7 @@ namespace CodeBytes.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SolutionHub>("/solutions");
             });
         }
     }
