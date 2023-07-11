@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" [formGroup]="problemForm">
   <div class="language-selector">
-    <tui-select tuiTextfieldSize="s" [formControl]="problemForm">
+    <tui-select tuiTextfieldSize="s" formControlName="language">
       Character
       <input tuiTextfield placeholder="Choose language" />
       <tui-data-list-wrapper
         *tuiDataList
-        [items]="items"
+        [items]="Possible_Languages"
       ></tui-data-list-wrapper>
     </tui-select>
   </div>
@@ -13,7 +13,7 @@
     <ngx-monaco-editor
       style="height: 100%"
       [options]="editorOptions"
-      [(ngModel)]="code"
+      formControlName="code"
     ></ngx-monaco-editor>
   </div>
 </div>
