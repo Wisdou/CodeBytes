@@ -1,3 +1,10 @@
+<ng-template #icon>
+  <tui-avatar
+      size="xs"
+      [rounded]="true"
+      [avatarUrl]="avatarUrl"
+  ></tui-avatar>
+</ng-template>
 <div class="container" [formGroup]="problemForm">
   <div class="language-selector">
     <tui-select tuiTextfieldSize="s" formControlName="language">
@@ -11,9 +18,18 @@
   </div>
   <div class="editor-container">
     <ngx-monaco-editor
-      style="height: 100%"
+      style="height: calc(100% - 50px)"
       [options]="editorOptions"
       formControlName="code"
     ></ngx-monaco-editor>
+    <div class="button-container">
+      <button
+        tuiIconButton
+        type="button"
+        class="tui-space_right-3 tui-space_bottom-3"
+        [icon]="icon"
+        (click)="onClick()"
+      ></button>
+    </div>
   </div>
 </div>

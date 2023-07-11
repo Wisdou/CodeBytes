@@ -20,8 +20,11 @@ export interface SolutionCode{
 })
 export class CodeEditorComponent implements OnInit {
   @Output() currentCode = new EventEmitter<SolutionCode>();
+  @Output() submitButtonClicked = new EventEmitter<void>();
 
-   Possible_Languages: readonly string[] = [
+  readonly avatarUrl = `https://img.icons8.com/?size=512&id=59862&format=png`;
+
+  Possible_Languages: readonly string[] = [
     "C#",
     "Python",
     "Go",
@@ -49,8 +52,9 @@ export class CodeEditorComponent implements OnInit {
       };
       this.currentCode.emit(userCode);
     });
-    // this.solutionService.startConnection();
-    // this.solutionService.solutionListener('Wisdou' + Math.random() * 100);
-    // this.httpClient.get('https://localhost:5001/api/solution').subscribe((res) => console.log(res));
+  }
+
+  onClick(): void{
+    this.submitButtonClicked.emit();
   }
 }
