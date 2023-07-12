@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CodeBytes.API.Contracts.SolutionController;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -19,8 +20,8 @@ namespace CodeBytes.API.Controllers
             this._hub = hub;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpPost]
+        public async Task<IActionResult> Get(GetSolutionPerProblemRequest request)
         {
             for (int i = 0; i < 10; i++)
             {

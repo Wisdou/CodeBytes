@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class MainHeaderComponent {
   @Input() avatar: string = 'https://avatars.githubusercontent.com/u/11832552?v=4';
   logo: string = 'https://ng-web-apis.github.io/dist/assets/images/web-api.svg';
+  currentTheme: boolean = false;
 }

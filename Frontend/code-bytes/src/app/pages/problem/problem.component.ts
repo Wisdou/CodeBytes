@@ -4,6 +4,14 @@ import * as _ from 'lodash';
 import { ProblemService } from 'src/app/services/problem.service';
 import { Problem, ProblemByIdDTO } from '../../services/problem.service';
 import { of, switchMap } from 'rxjs';
+import { SolutionService } from 'src/app/services/solution.service';
+import { HttpClient } from '@angular/common/http';
+import { SolutionCode } from '../../components/code-editor/code-editor.component';
+interface SolutionRequest{
+  code: string,
+  language: string,
+  problemId: number;
+}
 
 @Component({
   selector: 'app-problem',
@@ -11,17 +19,24 @@ import { of, switchMap } from 'rxjs';
   styleUrls: ['./problem.component.scss'],
 })
 export class ProblemComponent implements OnInit {
-  @Input() problemId: number = 0;
+  @Input() problemId: number = -1;
   currentProblem!: Problem;
+  currentSolution!: SolutionCode;
+
   constructor(
     private problemService: ProblemService,
-    private router: Router,
     private route: ActivatedRoute,
-    private cdRef: ChangeDetectorRef
-  ) {}
+    private cdRef: ChangeDetectorRef,
+    public solutionService: SolutionService,
+    private httpClient: HttpClient
+  ) {
+    this.currentSolution = {
+      code: '',
+      language: 'C#',
+    };
+  }
 
   ngOnInit(): void {
-    console.log('Initialised');
     const titlePromise = this.route.params.pipe(switchMap(params => {
       if (!_.isNil(params)) {
         this.problemId = parseInt(params['id']);
@@ -46,5 +61,20 @@ export class ProblemComponent implements OnInit {
       }
       this.cdRef.markForCheck();
     });
+  }
+
+  onSolutionChanged(event: SolutionCode){
+    this.currentSolution = event;
+  }
+
+  onSubmitClicked(){
+    this.solutionService.startConnection();
+    this.solutionService.solutionListener('Wisdou' + Math.random() * 100);
+    const request: SolutionRequest = {
+      problemId: this.problemId,
+      code: this.currentSolution.code,
+      language: this.currentSolution.language
+    };
+    this.httpClient.post('https://localhost:5001/api/solution', request).subscribe((res) => console.log(res));
   }
 }

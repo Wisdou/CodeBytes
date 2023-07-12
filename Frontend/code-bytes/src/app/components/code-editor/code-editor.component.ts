@@ -19,7 +19,7 @@ export interface SolutionCode{
   styleUrls: ['./code-editor.component.scss'],
 })
 export class CodeEditorComponent implements OnInit {
-  @Output() currentCode = new EventEmitter<SolutionCode>();
+  @Output() currentCodeChanged = new EventEmitter<SolutionCode>();
   @Output() submitButtonClicked = new EventEmitter<void>();
 
   readonly avatarUrl = `https://img.icons8.com/?size=512&id=59862&format=png`;
@@ -50,7 +50,7 @@ export class CodeEditorComponent implements OnInit {
         language: form.language,
         code: form.code,
       };
-      this.currentCode.emit(userCode);
+      this.currentCodeChanged.emit(userCode);
     });
   }
 

@@ -19,7 +19,7 @@
       </ng-container>
     </div>
     <div class="editor-container">
-      <app-code-editor></app-code-editor>
+      <app-code-editor (currentCodeChanged)="onSolutionChanged($event)" (submitButtonClicked)="onSubmitClicked()"></app-code-editor>
     </div>
   </div>
 </div>
