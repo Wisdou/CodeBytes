@@ -1,9 +1,12 @@
-<ng-template #icon>
-  <tui-avatar
-      size="xs"
-      [rounded]="true"
-      [avatarUrl]="avatarUrl"
-  ></tui-avatar>
+<ng-template #playIcon>
+  <tui-svg
+      src="tuiIconPlay"
+  ></tui-svg>
+</ng-template>
+<ng-template #submitIcon>
+  <tui-svg
+      src="tuiIconArrowDown"
+  ></tui-svg>
 </ng-template>
 <div class="container" [formGroup]="problemForm">
   <div class="code-header">
@@ -20,12 +23,22 @@
     <div class="button-container">
       <button
         size="s"
-        tuiIconButton
+        tuiButton
         type="button"
-        class="tui-space_right-3 tui-space_bottom-3"
-        [icon]="icon"
+        class="tui-space_right-4"
+        [icon]="playIcon"
         (click)="onClick()"
-      ></button>
+      >Run code</button>
+    </div>
+    <div class="button-container">
+      <button
+        size="s"
+        tuiButton
+        type="button"
+        class="tui-space_right-4"
+        [icon]="submitIcon"
+        (click)="onClick()"
+      >Submit code</button>
     </div>
   </div>
   <div class="editor-container">

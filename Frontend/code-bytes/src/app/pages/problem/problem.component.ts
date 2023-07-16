@@ -76,6 +76,7 @@ export class ProblemComponent implements OnInit {
     this.solutionService.startConnection();
     this.solutionService.solutionListener('Wisdou', data => {
       this.codeOutput += data;
+      this.cdRef.markForCheck();
     });
     const request: SolutionRequest = {
       problemId: this.problemId,

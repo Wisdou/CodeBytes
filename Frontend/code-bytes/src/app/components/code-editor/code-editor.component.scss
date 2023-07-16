@@ -1,12 +1,19 @@
 :host {
   .code-header{
+    height: 40px;
     display: flex;
-    gap: 5px;
-    align-content: center;
+    gap: 10px;
+    align-items: center;
     width: 100%;
+
+    & > *{
+      min-height: 38px;
+      max-height: 38px;
+      margin: 0 !important;
+    }
+
     button{
       flex-grow: 1;
-      width: 100px;
       margin-bottom: 5px;
     }
   }
