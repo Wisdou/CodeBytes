@@ -34,6 +34,8 @@ import { CodeEditorComponent } from './components/code-editor/code-editor.compon
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import {TuiDataListWrapperModule, TuiMultiSelectModule, TuiSelectModule } from '@taiga-ui/kit';
 import {TuiButtonModule} from '@taiga-ui/core';
+import {TuiTabsModule} from '@taiga-ui/kit';
+import {TuiTabBarModule} from '@taiga-ui/addon-mobile';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import {TuiButtonModule} from '@taiga-ui/core';
     TuiMultiSelectModule,
     TuiTextfieldControllerModule,
     TuiSelectModule,
+    TuiTabsModule,
+    TuiTabBarModule,
     MonacoEditorModule.forRoot(),
     RouterModule,
     RouterModule.forRoot([

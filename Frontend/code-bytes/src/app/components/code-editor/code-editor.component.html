@@ -6,24 +6,20 @@
   ></tui-avatar>
 </ng-template>
 <div class="container" [formGroup]="problemForm">
-  <div class="language-selector">
-    <tui-select tuiTextfieldSize="s" formControlName="language">
-      Character
-      <input tuiTextfield placeholder="Choose language" />
-      <tui-data-list-wrapper
-        *tuiDataList
-        [items]="Possible_Languages"
-      ></tui-data-list-wrapper>
-    </tui-select>
-  </div>
-  <div class="editor-container">
-    <ngx-monaco-editor
-      style="height: calc(100% - 50px)"
-      [options]="editorOptions"
-      formControlName="code"
-    ></ngx-monaco-editor>
+  <div class="code-header">
+    <div class="language-selector">
+      <tui-select tuiTextfieldSize="s" formControlName="language">
+        Character
+        <input tuiTextfield placeholder="Choose language" />
+        <tui-data-list-wrapper
+          *tuiDataList
+          [items]="Possible_Languages"
+        ></tui-data-list-wrapper>
+      </tui-select>
+    </div>
     <div class="button-container">
       <button
+        size="s"
         tuiIconButton
         type="button"
         class="tui-space_right-3 tui-space_bottom-3"
@@ -31,5 +27,12 @@
         (click)="onClick()"
       ></button>
     </div>
+  </div>
+  <div class="editor-container">
+    <ngx-monaco-editor
+      style="height: 100%"
+      [options]="editorOptions"
+      formControlName="code"
+    ></ngx-monaco-editor>
   </div>
 </div>

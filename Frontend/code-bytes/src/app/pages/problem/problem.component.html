@@ -1,25 +1,54 @@
-<div class="container">
-  <div class="header-container">
-    <h1>{{ currentProblem?.title ?? "Not assigned" }}</h1>
-  </div>
-  <div class="problem-container">
-    <div class="description-container">
-      <h2>Description</h2>
-      <p>{{ currentProblem?.description ?? "Not assigned" }}</p>
-      <ng-container *ngIf="currentProblem?.tags">
-        <h2>Tags</h2>
-        <div class="tag-container">
-          <tui-tag
-            *ngFor="let tag of currentProblem.tags"
-            class="tui-space_right-1"
-            [value]="tag.tag"
-            [autoColor]="true"
-          ></tui-tag>
+<tui-loader [showLoader]="loading" [inheritColor]="true" [overlay]="true">
+  <div class="container">
+    <div class="header-container">
+      <h1>{{ currentProblem?.title ?? "Not assigned" }}</h1>
+    </div>
+    <div class="problem-container">
+      <div class="description-container">
+        <div class="tabs-container">
+          <tui-tabs [(activeItemIndex)]="activeItemIndex">
+            <button tuiTab (click)="onTabClick('Description')">
+              <tui-svg src="tuiIconAlertCircle" class="tui-space_right-2"></tui-svg>
+              Description
+            </button>
+            <button tuiTab (click)="onTabClick('Code output')">
+              <tui-svg src="tuiIconMonitor" class="tui-space_right-2"></tui-svg>
+              Code output
+            </button>
+          </tui-tabs>
         </div>
-      </ng-container>
-    </div>
-    <div class="editor-container">
-      <app-code-editor (currentCodeChanged)="onSolutionChanged($event)" (submitButtonClicked)="onSubmitClicked()"></app-code-editor>
+        <ng-container *ngIf="activeItemIndex === 0">
+          <h2>Description</h2>
+          <p>{{ currentProblem?.description ?? "Not assigned" }}</p>
+          <ng-container *ngIf="currentProblem?.tags">
+            <h2>Tags</h2>
+            <div class="tag-container">
+              <tui-tag
+                *ngFor="let tag of currentProblem.tags"
+                class="tui-space_right-1"
+                [value]="tag.tag"
+                [autoColor]="true"
+              ></tui-tag>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="activeItemIndex === 1">
+          <ng-container *ngIf="codeOutput !== ''">
+            <code class="code">
+              {{codeOutput}}
+            </code>
+          </ng-container>
+          <ng-container *ngIf="codeOutput === ''">
+            <p class="no-code">Your results will be shown here.</p>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="editor-container">
+        <app-code-editor
+          (currentCodeChanged)="onSolutionChanged($event)"
+          (submitButtonClicked)="onSubmitClicked()"
+        ></app-code-editor>
+      </div>
     </div>
   </div>
-</div>
+</tui-loader>

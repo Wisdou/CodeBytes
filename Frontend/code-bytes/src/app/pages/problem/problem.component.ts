@@ -22,6 +22,10 @@ export class ProblemComponent implements OnInit {
   @Input() problemId: number = -1;
   currentProblem!: Problem;
   currentSolution!: SolutionCode;
+  loading: boolean = false;
+
+  activeItemIndex: number = 0;
+  codeOutput: string = '';
 
   constructor(
     private problemService: ProblemService,
@@ -68,13 +72,22 @@ export class ProblemComponent implements OnInit {
   }
 
   onSubmitClicked(){
+    this.codeOutput = '';
     this.solutionService.startConnection();
-    this.solutionService.solutionListener('Wisdou' + Math.random() * 100);
+    this.solutionService.solutionListener('Wisdou', data => {
+      this.codeOutput += data;
+    });
     const request: SolutionRequest = {
       problemId: this.problemId,
       code: this.currentSolution.code,
       language: this.currentSolution.language
     };
-    this.httpClient.post('https://localhost:5001/api/solution', request).subscribe((res) => console.log(res));
+    // this.loading = true;
+    this.httpClient.post('https://localhost:5001/api/solution', request).subscribe((res) => {
+      // this.loading = false;
+      this.cdRef.markForCheck();
+    });
   }
+
+  onTabClick(tabName: string){}
 }

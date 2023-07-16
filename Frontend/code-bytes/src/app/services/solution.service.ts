@@ -17,9 +17,9 @@ export class SolutionService {
     this.hubConnection.start().then(() => console.log('Connection started')).catch(err => console.log(err));
   }
 
-  public solutionListener(user: string){
+  public solutionListener(user: string, pred: (val: any) => void){
     this.hubConnection.on("GetSolution", (data) => {
-      console.log(data);
+      pred(data);
     });
   }
 
