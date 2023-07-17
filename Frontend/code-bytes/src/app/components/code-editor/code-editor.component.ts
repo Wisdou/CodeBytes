@@ -20,6 +20,7 @@ export interface SolutionCode{
 })
 export class CodeEditorComponent implements OnInit {
   @Output() currentCodeChanged = new EventEmitter<SolutionCode>();
+  @Output() runCodeButtonClicked = new EventEmitter<void>();
   @Output() submitButtonClicked = new EventEmitter<void>();
 
   readonly avatarUrl = `https://img.icons8.com/?size=512&id=59862&format=png`;
@@ -54,7 +55,11 @@ export class CodeEditorComponent implements OnInit {
     });
   }
 
-  onClick(): void{
+  onRunCodeClick(): void{
+    this.runCodeButtonClicked.emit();
+  }
+
+  onSubmitClick(): void{
     this.submitButtonClicked.emit();
   }
 }
