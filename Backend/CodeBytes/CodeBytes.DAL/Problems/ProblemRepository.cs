@@ -14,6 +14,8 @@ namespace CodeBytes.DAL.Problems
 {
     public class ProblemRepository : IProblemRepository
     {
+        private const double MIN_SIMILARITY = 0.5;
+
         private CodeByteContext _context;
 
         public ProblemRepository(CodeByteContext context)
@@ -33,10 +35,15 @@ namespace CodeBytes.DAL.Problems
             int skipAmount = filter.Paging.Page * filter.Paging.Size;
             int takeAmount = filter.Paging.Size;
 
-            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            var problemsSet = this._context.Problems;
+            IQueryable<ProblemEntity> filteredTasks;
             if (filter.StartsWith != null && filter.StartsWith != String.Empty)
             {
-                filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));
+                filteredTasks = problemsSet.FromSqlInterpolated($"SELECT * FROM public.\"Problems\" WHERE SIMILARITY(SUBSTRING(\"Title\", 1, {filter.StartsWith.Length}), {filter.StartsWith}) > {ProblemRepository.MIN_SIMILARITY}");
+            }
+            else
+            {
+                filteredTasks = problemsSet;
             }
 
             if (filter.Difficulties != null && filter.Difficulties.Length > 0)
@@ -60,10 +67,15 @@ namespace CodeBytes.DAL.Problems
             int skipAmount = filter.Paging.Page * filter.Paging.Size;
             int takeAmount = filter.Paging.Size;
 
-            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            var problemsSet = this._context.Problems;
+            IQueryable<ProblemEntity> filteredTasks;
             if (filter.StartsWith != null && filter.StartsWith != String.Empty)
             {
-                filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));
+                filteredTasks = problemsSet.FromSqlInterpolated($"SELECT * FROM public.\"Problems\" WHERE SIMILARITY(SUBSTRING(\"Title\", 1, {filter.StartsWith.Length}), {filter.StartsWith}) > {ProblemRepository.MIN_SIMILARITY}");
+            }
+            else
+            {
+                filteredTasks = problemsSet;
             }
 
             if (filter.Difficulties != null && filter.Difficulties.Length > 0)
