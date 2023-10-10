@@ -41,6 +41,8 @@ namespace CodeBytes.API
             services.AddSignalR();
             services.AddScoped<IProblemRepository, ProblemRepository>();
             services.AddScoped<IProblemService, ProblemService>();
+            services.AddScoped<IProblemCRMRepository, ProblemCRMRepository>();
+            services.AddScoped<IProblemCRMService, ProblemCRMService>();
 
             services.AddCors(options =>
             {

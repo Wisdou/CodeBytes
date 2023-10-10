@@ -11,10 +11,6 @@ namespace CodeBytes.Domain.Interfaces
     {
         Problem Get(int id);
         Task<Problem> GetAsync(int id);
-        void Save(Problem entity);
-        Task SaveAsync(Problem entity);
-        void SaveRange(IEnumerable<Problem> entities);
-        Task SaveRangeAsync(IEnumerable<Problem> entities);
         IReadOnlyCollection<Problem> GetAll();
         Task<IReadOnlyCollection<Problem>> GetAllAsync();
         IReadOnlyCollection<Problem> Get(ProblemFilterParams filter);
@@ -22,7 +18,6 @@ namespace CodeBytes.Domain.Interfaces
         int GetTotalCount();
         Task<int> GetTotalCountAsync();
         int GetTotalCount(ProblemFilterParams filter);
-
         Task<int> GetTotalCountAsync(ProblemFilterParams filter);
     }
 }

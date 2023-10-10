@@ -16,16 +16,6 @@ namespace CodeBytes.API.Services
             this._repository = repository;
         }
 
-        public void SaveProblem(Problem Problem)
-        {
-            this._repository.Save(Problem);
-        }
-
-        public void SaveProblems(IEnumerable<Problem> Problems)
-        {
-            this._repository.SaveRange(Problems);
-        }
-
         public Problem GetProblem(int id)
         {
             return this._repository.Get(id);
@@ -34,16 +24,6 @@ namespace CodeBytes.API.Services
         public IReadOnlyCollection<Problem> GetProblems()
         {
             return this._repository.GetAll();
-        }
-
-        public async Task SaveProblemAsync(Problem problemDTO)
-        {
-            await this._repository.SaveAsync(problemDTO);
-        }
-
-        public async Task SaveProblemsAsync(IEnumerable<Problem> problemDTOs)
-        {
-            await this._repository.SaveRangeAsync(problemDTOs);
         }
 
         public async Task<Problem> GetProblemAsync(int id)
