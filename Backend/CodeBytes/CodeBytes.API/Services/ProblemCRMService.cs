@@ -59,5 +59,44 @@ namespace CodeBytes.API.Services
             }
             return true;
         }
+
+        public async Task<bool> DeleteProblemAsync(int id)
+        {
+            try
+            {
+                await this._repository.DeleteProblemAsync(id);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool DeleteProblems(int[] ids)
+        {
+            try
+            {
+                this._repository.DeleteProblems(ids);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> DeleteProblemsAsync(int[] ids)
+        {
+            try
+            {
+                await this._repository.DeleteProblemsAsync(ids);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
