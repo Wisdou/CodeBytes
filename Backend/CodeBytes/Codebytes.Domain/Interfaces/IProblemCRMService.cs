@@ -13,5 +13,7 @@ namespace CodeBytes.Domain.Interfaces
         public void SaveProblems(IEnumerable<Problem> problemDTOs);
         public Task SaveProblemAsync(Problem problemDTO);
         public Task SaveProblemsAsync(IEnumerable<Problem> problemDTOs);
+        public bool DeleteProblem(Problem problem);
+        public bool DeleteProblem(int id);
     }
 }

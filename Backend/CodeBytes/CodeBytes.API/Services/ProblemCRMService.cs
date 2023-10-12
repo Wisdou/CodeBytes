@@ -33,5 +33,31 @@ namespace CodeBytes.API.Services
         {
             await this._repository.SaveRangeAsync(problemDTOs);
         }
+
+        public bool DeleteProblem(Problem problem)
+        {
+            try
+            {
+                this._repository.DeleteProblem(problem.Id);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool DeleteProblem(int id)
+        {
+            try
+            {
+                this._repository.DeleteProblem(id);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

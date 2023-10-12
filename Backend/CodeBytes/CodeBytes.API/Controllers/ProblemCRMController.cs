@@ -1,5 +1,9 @@
-﻿using CodeBytes.API.Services;
+﻿using AngleSharp.Io;
+using CodeBytes.API.Contracts;
+using CodeBytes.API.Contracts.ProblemController;
+using CodeBytes.API.Services;
 using CodeBytes.Domain.Interfaces;
+using CodeBytes.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,6 +24,39 @@ namespace CodeBytes.API.Controllers
         {
             this._logger = logger;
             this._service = problemCRMService;
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProblemById([FromBody] DeleteProblemByIdRequest deleteProblemRequest)
+        {
+            if (deleteProblemRequest == null)
+            {
+                return BadRequest();
+            }
+
+            var isDeleted = this._service.DeleteProblem(deleteProblemRequest.Id);
+
+            if (!isDeleted)
+            {
+                return BadRequest(new NoProblemErrorResponse(deleteProblemRequest.Id));
+            }
+            else
+            {
+                return Ok(new DeleteProblemByIdResponse(deleteProblemRequest.Id));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveProblem([FromBody] SaveProblemRequest saveProblemRequest)
+        {
+            if (saveProblemRequest == null)
+            {
+                return BadRequest();
+            }
+
+            this._service.SaveProblem(saveProblemRequest.ProblemToSave);
+
+            return Ok(new SaveProblemResponse());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CodeBytes.DAL.Data;
 using CodeBytes.Domain.Interfaces;
 using CodeBytes.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,34 @@ namespace CodeBytes.DAL.Problems
         public ProblemCRMRepository(CodeByteContext context)
         {
             this._context = context;
+        }
+
+        public void DeleteProblem(int id)
+        {
+            ProblemEntity problem = this._context.Problems.First(x => x.ID == id);
+            this._context.Problems.Remove(problem);
+            this._context.SaveChanges();
+        }
+
+        public async Task DeleteProblemAsync(int id)
+        {
+            ProblemEntity problem = await this._context.Problems.FirstAsync(x => x.ID == id);
+            this._context.Problems.Remove(problem);
+            await this._context.SaveChangesAsync();
+        }
+
+        public void DeleteProblems(int[] ids)
+        {
+            IEnumerable<ProblemEntity> problemsToDelete = this._context.Problems.Where(x => ids.Contains(x.ID));
+            this._context.Problems.RemoveRange(problemsToDelete);
+            this._context.SaveChanges();
+        }
+
+        public async Task DeleteProblemsAsync(int[] ids)
+        {
+            IEnumerable<ProblemEntity> problemsToDelete = this._context.Problems.Where(x => ids.Contains(x.ID));
+            this._context.Problems.RemoveRange(problemsToDelete);
+            await this._context.SaveChangesAsync();
         }
 
         public void Save(Problem model)
