@@ -11,21 +11,21 @@ namespace CodeBytes.Reader.Codewars.Mapping
 {
     public static class KataMapsterConfig
     {
-        private static Dictionary<int, int> Dict = new Dictionary<int, int>()
+        private static Dictionary<int, Problem.ProblemDifficulty> Dict = new Dictionary<int, Problem.ProblemDifficulty>()
         {
-            {-8, 1},
-            {-7, 1},
-            {-6, 2},
-            {-5, 2},
-            {-4, 2},
-            {-3, 3},
-            {-2, 3},
-            {-1, 3},
-            {1, 3},
-            {2, 3},
-            {3, 3},
-            {4, 3},
-            {0, -1}
+            {-8, Problem.ProblemDifficulty.Easy},
+            {-7, Problem.ProblemDifficulty.Easy},
+            {-6, Problem.ProblemDifficulty.Medium},
+            {-5, Problem.ProblemDifficulty.Medium},
+            {-4, Problem.ProblemDifficulty.Medium},
+            {-3, Problem.ProblemDifficulty.Hard},
+            {-2, Problem.ProblemDifficulty.Hard},
+            {-1, Problem.ProblemDifficulty.Hard},
+            {1, Problem.ProblemDifficulty.Hard},
+            {2, Problem.ProblemDifficulty.Hard},
+            {3, Problem.ProblemDifficulty.Hard},
+            {4, Problem.ProblemDifficulty.Hard},
+            {0, Problem.ProblemDifficulty.Unknown}
         };
 
         public static TypeAdapterConfig KataMapsterConfiguration = new TypeAdapterConfig().NewConfig<Kata, Problem>().
