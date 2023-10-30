@@ -16,35 +16,35 @@ namespace CodeBytes.DAL.Problems
 
         public ProblemCRMRepository(CodeByteContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public void DeleteProblem(int id)
         {
-            ProblemEntity problem = this._context.Problems.First(x => x.ID == id);
-            this._context.Problems.Remove(problem);
-            this._context.SaveChanges();
+            ProblemEntity problem = _context.Problems.First(x => x.ID == id);
+            _context.Problems.Remove(problem);
+            _context.SaveChanges();
         }
 
         public async Task DeleteProblemAsync(int id)
         {
-            ProblemEntity problem = await this._context.Problems.FirstAsync(x => x.ID == id);
-            this._context.Problems.Remove(problem);
-            await this._context.SaveChangesAsync();
+            ProblemEntity problem = await _context.Problems.FirstAsync(x => x.ID == id);
+            _context.Problems.Remove(problem);
+            await _context.SaveChangesAsync();
         }
 
         public void DeleteProblems(int[] ids)
         {
-            IEnumerable<ProblemEntity> problemsToDelete = this._context.Problems.Where(x => ids.Contains(x.ID));
-            this._context.Problems.RemoveRange(problemsToDelete);
-            this._context.SaveChanges();
+            IEnumerable<ProblemEntity> problemsToDelete = _context.Problems.Where(x => ids.Contains(x.ID));
+            _context.Problems.RemoveRange(problemsToDelete);
+            _context.SaveChanges();
         }
 
         public async Task DeleteProblemsAsync(int[] ids)
         {
-            IEnumerable<ProblemEntity> problemsToDelete = this._context.Problems.Where(x => ids.Contains(x.ID));
-            this._context.Problems.RemoveRange(problemsToDelete);
-            await this._context.SaveChangesAsync();
+            IEnumerable<ProblemEntity> problemsToDelete = _context.Problems.Where(x => ids.Contains(x.ID));
+            _context.Problems.RemoveRange(problemsToDelete);
+            await _context.SaveChangesAsync();
         }
 
         public void Save(Problem model)
@@ -54,8 +54,8 @@ namespace CodeBytes.DAL.Problems
                 return;
             }
 
-            this._context.Problems.Add(ProblemMapping.GetEntityFromModel(model));
-            this._context.SaveChanges();
+            _context.Problems.Add(ProblemMapping.GetEntityFromModel(model));
+            _context.SaveChanges();
         }
 
         public async Task SaveAsync(Problem model)
@@ -65,8 +65,8 @@ namespace CodeBytes.DAL.Problems
                 return;
             }
 
-            await this._context.Problems.AddAsync(ProblemMapping.GetEntityFromModel(model));
-            await this._context.SaveChangesAsync();
+            await _context.Problems.AddAsync(ProblemMapping.GetEntityFromModel(model));
+            await _context.SaveChangesAsync();
         }
 
         public void SaveRange(IEnumerable<Problem> models)
@@ -77,8 +77,8 @@ namespace CodeBytes.DAL.Problems
             }
 
             IEnumerable<ProblemEntity> entitiesForSave = models.Select(problem => ProblemMapping.GetEntityFromModel(problem));
-            this._context.Problems.AddRange(entitiesForSave);
-            this._context.SaveChanges();
+            _context.Problems.AddRange(entitiesForSave);
+            _context.SaveChanges();
         }
 
         public async Task SaveRangeAsync(IEnumerable<Problem> models)
@@ -89,8 +89,8 @@ namespace CodeBytes.DAL.Problems
             }
 
             IEnumerable<ProblemEntity> entitiesForSave = models.Select(problem => ProblemMapping.GetEntityFromModel(problem));
-            await this._context.Problems.AddRangeAsync(entitiesForSave);
-            await this._context.SaveChangesAsync();
+            await _context.Problems.AddRangeAsync(entitiesForSave);
+            await _context.SaveChangesAsync();
         }
     }
 }

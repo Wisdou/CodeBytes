@@ -22,14 +22,14 @@ namespace CodeBytes.API.Controllers
 
         public ProblemsController(ILogger<ProblemsController> logger, IProblemService problemService)
         {
-            this._logger = logger;
-            this._service = problemService;
+            _logger = logger;
+            _service = problemService;
         }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetProblemById(int id)
         {
-            var problem = await this._service.GetProblemAsync(id);
+            var problem = await _service.GetProblemAsync(id);
             if (problem == null)
             {
                 var errorResponse = new NoProblemErrorResponse(id);
@@ -46,8 +46,8 @@ namespace CodeBytes.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProblems()
         {
-            var problems = await this._service.GetProblemsAsync();
-            var totalCount = await this._service.GetTotalCountAsync();
+            var problems = await _service.GetProblemsAsync();
+            var totalCount = await _service.GetTotalCountAsync();
             var response = new GetProblemsResponse()
             {
                 Total = totalCount,
@@ -59,8 +59,8 @@ namespace CodeBytes.API.Controllers
         [HttpPost]
         public async Task<IActionResult> GetProblemsWithFilter([FromBody] ProblemFilterParams problemsFilter)
         {
-            var problems = await this._service.GetProblemsAsync(problemsFilter);
-            var totalCount = await this._service.GetTotalCountAsync(problemsFilter);
+            var problems = await _service.GetProblemsAsync(problemsFilter);
+            var totalCount = await _service.GetTotalCountAsync(problemsFilter);
             var response = new GetProblemsResponse()
             {
                 Total = totalCount,

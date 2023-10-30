@@ -12,33 +12,33 @@ namespace CodeBytes.API.Services
         private IProblemCRMRepository _repository;
         public ProblemCRMService(IProblemCRMRepository repository)
         {
-            this._repository = repository;
+            _repository = repository;
         }
 
         public void SaveProblem(Problem Problem)
         {
-            this._repository.Save(Problem); 
+            _repository.Save(Problem); 
         }
 
         public void SaveProblems(IEnumerable<Problem> Problems)
         {
-            this._repository.SaveRange(Problems);
+            _repository.SaveRange(Problems);
         }
         public async Task SaveProblemAsync(Problem problemDTO)
         {
-            await this._repository.SaveAsync(problemDTO);
+            await _repository.SaveAsync(problemDTO);
         }
 
         public async Task SaveProblemsAsync(IEnumerable<Problem> problemDTOs)
         {
-            await this._repository.SaveRangeAsync(problemDTOs);
+            await _repository.SaveRangeAsync(problemDTOs);
         }
 
         public bool DeleteProblem(Problem problem)
         {
             try
             {
-                this._repository.DeleteProblem(problem.Id);
+                _repository.DeleteProblem(problem.Id);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace CodeBytes.API.Services
         {
             try
             {
-                this._repository.DeleteProblem(id);
+                _repository.DeleteProblem(id);
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace CodeBytes.API.Services
         {
             try
             {
-                await this._repository.DeleteProblemAsync(id);
+                await _repository.DeleteProblemAsync(id);
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace CodeBytes.API.Services
         {
             try
             {
-                this._repository.DeleteProblems(ids);
+                _repository.DeleteProblems(ids);
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace CodeBytes.API.Services
         {
             try
             {
-                await this._repository.DeleteProblemsAsync(ids);
+                await _repository.DeleteProblemsAsync(ids);
             }
             catch (Exception ex)
             {

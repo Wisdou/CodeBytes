@@ -20,12 +20,12 @@ namespace CodeBytes.DAL.Problems
 
         public ProblemRepository(CodeByteContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public Problem Get(int id)
         {
-            ProblemEntity problem = this._context.Problems.Include(x => x.Tags).AsNoTracking().FirstOrDefault(x => x.ID == id);
+            ProblemEntity problem = _context.Problems.Include(x => x.Tags).AsNoTracking().FirstOrDefault(x => x.ID == id);
 
             return ProblemMapping.GetModelFromEntity(problem);
         }
@@ -35,7 +35,7 @@ namespace CodeBytes.DAL.Problems
             int skipAmount = filter.Paging.Page * filter.Paging.Size;
             int takeAmount = filter.Paging.Size;
 
-            var problemsSet = this._context.Problems;
+            var problemsSet = _context.Problems;
             IQueryable<ProblemEntity> filteredTasks;
             if (filter.StartsWith != null && filter.StartsWith != String.Empty)
             {
@@ -67,7 +67,7 @@ namespace CodeBytes.DAL.Problems
             int skipAmount = filter.Paging.Page * filter.Paging.Size;
             int takeAmount = filter.Paging.Size;
 
-            var problemsSet = this._context.Problems;
+            var problemsSet = _context.Problems;
             IQueryable<ProblemEntity> filteredTasks;
             if (filter.StartsWith != null && filter.StartsWith != String.Empty)
             {
@@ -98,38 +98,38 @@ namespace CodeBytes.DAL.Problems
 
         public IReadOnlyCollection<Problem> GetAll()
         {
-            List<ProblemEntity> problems = this._context.Problems.Include(x => x.Tags).AsNoTracking().ToList();
+            List<ProblemEntity> problems = _context.Problems.Include(x => x.Tags).AsNoTracking().ToList();
 
             return problems.Select(problem => ProblemMapping.GetModelFromEntity(problem)).ToList().AsReadOnly();
         }
 
         public async Task<IReadOnlyCollection<Problem>> GetAllAsync()
         {
-            List<ProblemEntity> problems = await this._context.Problems.Include(x => x.Tags).AsNoTracking().ToListAsync();
+            List<ProblemEntity> problems = await _context.Problems.Include(x => x.Tags).AsNoTracking().ToListAsync();
 
             return problems.Select(problem => ProblemMapping.GetModelFromEntity(problem)).ToList().AsReadOnly();
         }
 
         public async Task<Problem> GetAsync(int id)
         {
-            ProblemEntity problem = await this._context.Problems.Include(x => x.Tags).AsNoTracking().FirstOrDefaultAsync(x => x.ID == id);
+            ProblemEntity problem = await _context.Problems.Include(x => x.Tags).AsNoTracking().FirstOrDefaultAsync(x => x.ID == id);
             return ProblemMapping.GetModelFromEntity(problem);
         }
 
         public int GetTotalCount()
         {
-            return this._context.Problems.Count();
+            return _context.Problems.Count();
         }
 
         public async Task<int> GetTotalCountAsync()
         {
-            int result = await this._context.Problems.CountAsync();
+            int result = await _context.Problems.CountAsync();
             return result;
         }
 
         public int GetTotalCount(ProblemFilterParams filter)
         {
-            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            IQueryable<ProblemEntity> filteredTasks = _context.Problems;
             if (filter.StartsWith != null && filter.StartsWith != String.Empty)
             {
                 filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));
@@ -146,7 +146,7 @@ namespace CodeBytes.DAL.Problems
 
         public async Task<int> GetTotalCountAsync(ProblemFilterParams filter)
         {
-            IQueryable<ProblemEntity> filteredTasks = this._context.Problems;
+            IQueryable<ProblemEntity> filteredTasks = _context.Problems;
             if (filter.StartsWith != null && filter.StartsWith != String.Empty)
             {
                 filteredTasks = filteredTasks.Where(x => x.Title.StartsWith(filter.StartsWith));

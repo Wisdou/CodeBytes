@@ -22,8 +22,8 @@ namespace CodeBytes.API.Controllers
 
         public ProblemCRMController(ILogger<ProblemCRMController> logger, IProblemCRMService problemCRMService)
         {
-            this._logger = logger;
-            this._service = problemCRMService;
+            _logger = logger;
+            _service = problemCRMService;
         }
 
         [HttpDelete]
@@ -34,7 +34,7 @@ namespace CodeBytes.API.Controllers
                 return BadRequest();
             }
 
-            var isDeleted = this._service.DeleteProblem(deleteProblemRequest.Id);
+            var isDeleted = _service.DeleteProblem(deleteProblemRequest.Id);
 
             if (!isDeleted)
             {
@@ -54,7 +54,7 @@ namespace CodeBytes.API.Controllers
                 return BadRequest();
             }
 
-            this._service.SaveProblem(saveProblemRequest.ProblemToSave);
+            _service.SaveProblem(saveProblemRequest.ProblemToSave);
 
             return Ok(new SaveProblemResponse());
         }

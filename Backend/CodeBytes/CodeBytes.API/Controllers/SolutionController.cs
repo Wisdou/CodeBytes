@@ -17,7 +17,7 @@ namespace CodeBytes.API.Controllers
 
         public SolutionController(IHubContext<SolutionHub> hub)
         {
-            this._hub = hub;
+            _hub = hub;
         }
 
         [HttpPost]
@@ -26,7 +26,7 @@ namespace CodeBytes.API.Controllers
             for (int i = 0; i < 10; i++)
             {
                 await Task.Delay(1000);
-                await this._hub.Clients.All.SendAsync("GetSolution", "Solution");
+                await _hub.Clients.All.SendAsync("GetSolution", "Solution");
             }
 
             return Ok(new { Message = "Request Completed" });
